@@ -1,4 +1,8 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, ReactNode } from "react";
+
+type Error = {
+  email: string;
+};
 
 type Props = {
   type: string;
@@ -7,6 +11,7 @@ type Props = {
   placeholder: string;
   className: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
 };
 
 const Input = ({
@@ -16,16 +21,20 @@ const Input = ({
   placeholder,
   className,
   onChange,
+  error,
 }: Props) => {
   return (
-    <input
-      className={className}
-      type={type}
-      placeholder={placeholder}
-      name={name}
-      onChange={onChange}
-      value={value}
-    />
+    <>
+      <input
+        className={className}
+        type={type}
+        placeholder={placeholder}
+        name={name}
+        onChange={onChange}
+        value={value}
+      />
+      <p className="text-red-600 capitalize">{error}</p>
+    </>
   );
 };
 
