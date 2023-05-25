@@ -4,6 +4,7 @@ import Input from "../../components/Input";
 import Text from "../../components/Text";
 import Button from "../../components/Button";
 import { Link } from "react-router-dom";
+import { validation } from "../../hooks/useRegisterValidatio";
 
 const initialState = {
   name: "",
@@ -13,53 +14,30 @@ const initialState = {
   conformPassword: "",
 };
 
+type inputType = {
+  name: string;
+  empid: string;
+  email: string;
+  password: string;
+  conformPassword: string;
+};
+
 const Register = () => {
-  const [values, setValues] = useState<any>(initialState);
-  const [errors, setErrors] = useState<any>(false);
-  // const [success, setSuccess] = useState<any>(false);
+  const [values, setValues] = useState<inputType>(initialState);
+  const [errors, setErrors] = useState<inputType>(initialState);
 
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [e.target.name]: e.target.value });
-  };
-
-  const validation = (values: any) => {
-    const error = {
-      name: "",
-      empid: "",
-      email: "",
-      password: "",
-      conformPassword: "",
-    };
-    const email_regex = /@flyerssoft\.com/i;
-
-    const empid_regex = /FEC/i;
-
-    if (values.name === "") {
-      error.name = "Name is Required";
-    }
-    if (empid_regex.test(values.empid)) {
-      error.empid = "Employe Id is same";
-      // alert("authorized");
-    } else if (values.empid === "") {
-      error.empid = "Employe Id is required";
-      // alert("please provide employee id");
-    } else {
-      error.empid = "Employe Id is not same";
-      // alert("Employ id not same");
-    }
-    if (email_regex.test(values.email)) {
-      alert("email flyers success");
-    } else if (values.email === "") {
-      error.email = "please provide email";
-    } else {
-      alert("unauthorised email");
-    }
-    return error;
+    setErrors(validation({ ...values, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = () => {
     setErrors(validation(values));
   };
+
+  console.log("val", values);
+  console.log("err", errors);
+  console.log("errorkeys", Object.values(errors));
 
   return (
     <section className="flex flex-col h-screen items-center justify-center py-3 px-5">
@@ -101,7 +79,6 @@ const Register = () => {
                 className="w-full border border-solid rounded-xl py-3 px-5"
                 onChange={changeHandler}
                 error={errors.empid}
-                // error={errorMessage.empid}
               />
             </div>
           </div>
@@ -114,7 +91,6 @@ const Register = () => {
               className="w-full border border-solid rounded-xl py-3 px-5"
               onChange={changeHandler}
               error={errors.email}
-              // error={errorMessage.email}
             />
           </div>
           <div className="w-full  sm:flex sm:gap-3">
@@ -126,6 +102,7 @@ const Register = () => {
                 placeholder="Password"
                 className="w-full border border-solid rounded-xl py-3 px-5"
                 onChange={changeHandler}
+                error={errors.password}
               />
             </div>
             <div className="w-full flex flex-col my-3 sm:w-[50%] sm:justify-center">
@@ -136,6 +113,7 @@ const Register = () => {
                 placeholder="Conform Password"
                 className="w-full border border-solid rounded-xl py-3 px-5"
                 onChange={changeHandler}
+                error={errors.conformPassword}
               />
             </div>
           </div>

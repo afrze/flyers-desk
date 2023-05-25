@@ -1,8 +1,4 @@
-import { ChangeEvent, ReactNode } from "react";
-
-type Error = {
-  email: string;
-};
+import { ChangeEvent } from "react";
 
 type Props = {
   type: string;
@@ -33,7 +29,7 @@ const Input = ({
         onChange={onChange}
         value={value}
       />
-      <p className="text-red-600 capitalize">{error}</p>
+      <p className="text-red-600 capitalize">{error} </p>
     </>
   );
 };
