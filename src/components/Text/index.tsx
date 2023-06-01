@@ -1,18 +1,16 @@
-// import React from "react";
-
 import classNames from "classnames";
 
 type Props = {
-  type: string;
+  type?: string;
   children: JSX.Element | string;
   className?: string;
 };
 
 const Text = ({ type, children, className }: Props) => {
   const textClass = classNames(
-    { "text-3xl": type === "h1" },
-    { "text-sm": type === "h2" },
-    { "text-xs": type === "h3" },
+    { "text-4xl": type === "h1" },
+    { "text-2xl": type === "h2" },
+    { "text-xl": type === "h3" },
     className
   );
   if (type === "h1") {
