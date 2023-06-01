@@ -1,14 +1,22 @@
 import { FlyerssoftLogo, MicrosoftLogo } from "../../assets";
 import Button from "../../components/Button";
 import Text from "../../components/Text";
-import { loginWithMicrosoft } from "../../services/firebaseAuth.service";
+// import { loginWithMicrosoft } from "../../services/firebaseAuth.service";
+import { useUserApi } from "../../store/userSlice/userQuery";
 
 const Login = () => {
+  
+  const [trigger, { data, error, loading }] = useUserApi()
 
   const clickHandler = async () => {
-    const result = await loginWithMicrosoft()
-    console.log("from page", result);
+    // const result = await loginWithMicrosoft()
+    // console.log("from page", result);
+    trigger()
   }
+
+  console.log(data);
+  console.log(error);
+  console.log(loading);
 
   return (
     <section className="h-screen flex justify-center">
