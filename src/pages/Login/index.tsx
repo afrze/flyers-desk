@@ -1,22 +1,26 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { FlyerssoftLogo, MicrosoftLogo } from "../../assets";
 import Button from "../../components/Button";
 import Text from "../../components/Text";
-// import { loginWithMicrosoft } from "../../services/firebaseAuth.service";
-import { useUserApi } from "../../store/userSlice/userQuery";
+import { loginWithMicrosoftAsync } from "../../store/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const activeUser = useSelector((state : any) => state.user);
+  const navigate = useNavigate()
   
-  const [trigger, { data, error, loading }] = useUserApi()
-
-  const clickHandler = async () => {
-    // const result = await loginWithMicrosoft()
-    // console.log("from page", result);
-    trigger()
+  const clickHandler = () => {
+    dispatch(loginWithMicrosoftAsync())
   }
 
-  console.log(data);
-  console.log(error);
-  console.log(loading);
+  useEffect(() => {
+    if (activeUser.data.acessToken) {
+      navigate('/')
+    }
+  }, [activeUser.data.acessToken, navigate])
+  
 
   return (
     <section className="h-screen flex justify-center">

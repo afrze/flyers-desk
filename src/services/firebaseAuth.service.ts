@@ -12,9 +12,16 @@ export const loginWithMicrosoft = async () => {
   });
 
   try {
-    const res = await signInWithPopup(auth, provider);
-    console.log("from service", res);
-    return res;
+    const res: any = await signInWithPopup(auth, provider);
+    const userResults = {
+      uid: res.user.uid,
+      email: res.user.email,
+      displayName: res.user.displayName,
+      acessToken: res?.user?.stsTokenManager?.accessToken,
+      refreshToken: res?.user?.stsTokenManager?.refreshToken,
+      expirationTime: res?.user?.stsTokenManager?.expirationTime,
+    }
+    return userResults;
   } catch (error) {
     return error;
   }
