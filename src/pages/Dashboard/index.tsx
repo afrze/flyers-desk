@@ -15,7 +15,7 @@ const DashBoard = () => {
 
   return (
     <div>
-      <Text type="h1">Dashboard</Text>
+      <Text type="h1">Dashboard {activeUser.data.displayName} </Text>
     </div>
   );
 };

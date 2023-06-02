@@ -5,8 +5,8 @@ type Props = {
   name: string;
   value?: string;
   placeholder: string;
-  className: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  className?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const Input = ({

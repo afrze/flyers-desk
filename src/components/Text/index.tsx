@@ -2,7 +2,7 @@ import classNames from "classnames";
 
 type Props = {
   type?: string;
-  children: JSX.Element | string;
+  children?: JSX.Element | string;
   className?: string;
 };
 
@@ -11,6 +11,7 @@ const Text = ({ type, children, className }: Props) => {
     { "text-4xl": type === "h1" },
     { "text-2xl": type === "h2" },
     { "text-xl": type === "h3" },
+    { "text-sm": type === "p" },
     className
   );
   if (type === "h1") {

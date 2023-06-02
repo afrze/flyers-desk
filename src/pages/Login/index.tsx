@@ -8,26 +8,39 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const activeUser = useSelector((state : any) => state.user);
-  const navigate = useNavigate()
-  
+  const activeUser = useSelector((state: any) => state.user);
+  const navigate = useNavigate();
+
   const clickHandler = () => {
-    dispatch(loginWithMicrosoftAsync())
-  }
+    dispatch(loginWithMicrosoftAsync());
+  };
 
   useEffect(() => {
-    if (activeUser.data.acessToken) {
-      navigate('/')
+    // if (activeUser.data.acessToken) {
+    //   navigate("/profileupdate");
+    // }
+    if (activeUser.data.profileStatus === "pending") {
+      navigate("/profileupdate");
     }
-  }, [activeUser.data.acessToken, navigate])
-  
+    if (activeUser.data.profileStatus === "completed") {
+      navigate("/");
+    }
+  }, [activeUser.data, navigate]);
+
+  console.log("activeUser", activeUser);
 
   return (
     <section className="h-screen flex justify-center">
       <div className="flex flex-col items-center justify-center gap-4">
         <FlyerssoftLogo />
         <Text className="">Welcome to Flyerssoft Help Desk</Text>
-        <Button onClick={clickHandler} type="microsoft" prefix={<MicrosoftLogo width={50} height={50}/>}>Login with Microsoft</Button>
+        <Button
+          onClick={clickHandler}
+          type="microsoft"
+          prefix={<MicrosoftLogo width={50} height={50} />}
+        >
+          Login with Microsoft
+        </Button>
       </div>
     </section>
   );
