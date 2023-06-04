@@ -1,33 +1,32 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { FlyerssoftLogo, MicrosoftLogo } from "../../assets";
 import Button from "../../components/Button";
 import Text from "../../components/Text";
 import { loginWithMicrosoftAsync } from "../../store/userSlice";
+import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const dispatch = useDispatch();
-  const activeUser = useSelector((state: any) => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const cookies = new Cookies();
+  const accessToken = cookies.get("user_access_token");
+  const profileStatus = cookies.get("profile_status");
+
+  useEffect(() => {
+    if (!accessToken) {
+      navigate("/login");
+    }
+
+    if (profileStatus === "pending") {
+      navigate("/profile-update");
+    }
+  }, [accessToken, profileStatus, navigate]);
 
   const clickHandler = () => {
     dispatch(loginWithMicrosoftAsync());
   };
-
-  useEffect(() => {
-    // if (activeUser.data.acessToken) {
-    //   navigate("/profileupdate");
-    // }
-    if (activeUser.data.profileStatus === "pending") {
-      navigate("/profileupdate");
-    }
-    if (activeUser.data.profileStatus === "completed") {
-      navigate("/");
-    }
-  }, [activeUser.data, navigate]);
-
-  console.log("activeUser", activeUser);
 
   return (
     <section className="h-screen flex justify-center">

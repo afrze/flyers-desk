@@ -1,23 +1,37 @@
+import Cookies from "universal-cookie";
+import Button from "../../components/Button";
+import Text from "../../components/Text";
+import { logout } from "../../services/firebaseAuth.service";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Text from "../../components/Text";
-import { useSelector } from "react-redux";
 
-const DashBoard = () => {
+const Dashboard = () => {
   const navigate = useNavigate();
-  const activeUser = useSelector((state: any) => state.user);
+
+  const clickHandler = () => {
+    logout();
+  };
+
+  const cookies = new Cookies();
+  const accessToken = cookies.get("user_access_token");
+  const profileStatus = cookies.get("profile_status");
 
   useEffect(() => {
-    if (!activeUser.data.acessToken) {
+    if (!accessToken) {
       navigate("/login");
     }
-  }, [activeUser.data.acessToken, navigate]);
+
+    if (profileStatus === "pending") {
+      navigate("/profile-update");
+    }
+  }, [accessToken, profileStatus, navigate]);
 
   return (
     <div>
-      <Text type="h1">Dashboard {activeUser.data.displayName} </Text>
+      <Text type="h1">Dashboard</Text>
+      <Button onClick={clickHandler}>Logout</Button>
     </div>
   );
 };
 
-export default DashBoard;
+export default Dashboard;
