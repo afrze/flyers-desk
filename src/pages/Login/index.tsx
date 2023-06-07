@@ -22,16 +22,6 @@ const Login = () => {
     } else if (activeUser?.profileStatus === "completed") {
       navigate("/");
     }
-    // const user = JSON.parse(localStorage.getItem("user") || "{}");
-    // const profile_status = localStorage.getItem("profile_status");
-    // console.log("checking", user.profileStatus);
-    // if (user && profile_status === "pending") {
-    //   navigate("/profileupdate");
-    // }
-    // else {
-    //   console.log("COMMMING");
-    //   navigate("/");
-    // }
   }, [activeUser?.profileStatus, navigate]);
 
   return (

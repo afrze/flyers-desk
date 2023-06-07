@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import Text from "../../components/Text";
+// import Text from "../../components/Text";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -8,9 +8,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // if (activeUser?.data.acessToken) {
-    //   navigate("/profileupdate");
-    // }
     if (activeUser?.uid) {
       if (activeUser?.profileStatus === "pending") {
         navigate("/profileupdate");
@@ -20,7 +17,7 @@ const Login = () => {
 
   return (
     <section className="h-screen flex justify-center">
-      <Text>Dashboard {activeUser?.displayName}</Text>
+      <p>Dashboard {activeUser?.displayName}</p>
     </section>
   );
 };
