@@ -1,57 +1,52 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Text from "../../components/Text";
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import firebaseConfig from "../../services/firebaseConfig.service";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
+// import { useNavigate } from "react-router-dom";
 
 const ProfileUpdate = () => {
   const db = firebaseConfig.db;
-  const activeUser = useSelector((state: any) => state.user);
-  const navigate = useNavigate();
+  const activeUser = useSelector((state: any) => state.data);
+  // const navigate = useNavigate();
 
   const [values, setValues] = useState({
     employeeId: "",
     reportingTo: "",
   });
 
-  const cookies = new Cookies();
-  const accessToken = cookies.get("user_access_token");
-  const profileStatus = cookies.get("profile_status");
-
-  useEffect(() => {
-    if (!accessToken) {
-      navigate("/login");
-    }
-
-    if (profileStatus === "completed") {
-      navigate("/");
-    }
-  }, [accessToken, profileStatus, navigate]);
-
   const changeHandler = (e: any) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
   const submitHandler = async () => {
     try {
-      const submitProfile = doc(db, "users", activeUser.data.uid);
-      console.log(
-        "checking output from profileupdate",
-        submitProfile,
-        activeUser.data.uid
-      );
+      const submitProfile = doc(db, "users", activeUser?.uid);
 
       await updateDoc(submitProfile, {
         profileStatus: "completed",
         employeeId: values?.employeeId,
         reportingTo: values?.reportingTo,
       });
-      navigate("/");
+
+      const docRef = doc(db, "users", activeUser?.uid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap?.data());
+      }
+
+      // const user_uid = localStorage.getItem("user_uid");
+      // const profile_status = localStorage.setItem("profile_status", activeUser?.data.profileStatus);
+
+      // if (activeUser?.data.profileStatus === "completed") {
+      //   navigate("/");
+      //   return;
+      // }
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
 
@@ -59,11 +54,16 @@ const ProfileUpdate = () => {
     <div className="h-[80vh] flex justify-center items-center">
       <div className="p-5 border">
         <div>
-          <Text type="h2">Welcome To, Flyers Soft</Text>
-          <Text>Please Update Your Profile</Text>
+          <Text type="h2">Welcome To, Flyer,s Soft</Text>
+          <Text type="p">Please Update Your Profile</Text>
         </div>
         <form action="" className="flex flex-col">
           <div className="py-4">
+            {/* <div>
+              <label className="mr-3" htmlFor="employeeId">
+                Employee ID
+              </label>
+            </div> */}
             <div className="py-4">
               <Input
                 value={values?.employeeId}
