@@ -18,7 +18,7 @@ const Login = () => {
   useEffect(() => {
     console.log("activeUser?.data?.profileStatus", activeUser);
     if (activeUser?.profileStatus === "pending") {
-      navigate("/profileupdate");
+      navigate("/profile-update");
     } else if (activeUser?.profileStatus === "completed") {
       navigate("/");
     }

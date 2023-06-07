@@ -10,7 +10,7 @@ const Login = () => {
   useEffect(() => {
     if (activeUser?.uid) {
       if (activeUser?.profileStatus === "pending") {
-        navigate("/profileupdate");
+        navigate("/profile-update");
       }
     } else navigate("/login");
   }, [activeUser?.data, navigate]);
