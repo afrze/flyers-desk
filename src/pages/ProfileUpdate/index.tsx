@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Text from "../../components/Text";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
 import firebaseConfig from "../../services/firebaseConfig.service";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+// import { updateUserProfile } from "../../services/firebaseAuth.service";
+import { userProfileAsync } from "../../store/userSlice";
 
 const ProfileUpdate = () => {
-  const db = firebaseConfig.db;
-  const activeUser = useSelector((state: any) => state.data);
-
+  const dispatch = useDispatch();
   const [values, setValues] = useState({
     employeeId: "",
     reportingTo: "",
@@ -19,26 +19,28 @@ const ProfileUpdate = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  const submitHandler = async () => {
-    try {
-      const submitProfile = doc(db, "users", activeUser?.uid);
+  // const submitHandler = async () => {
+  //   try {
+  //     // const submitProfile = doc(db, "users", activeUser?.uid);
 
-      await updateDoc(submitProfile, {
-        profileStatus: "completed",
-        employeeId: values?.employeeId,
-        reportingTo: values?.reportingTo,
-      });
+  //     // await updateDoc(submitProfile, {
+  //     //   profileStatus: "completed",
+  //     //   employeeId: values?.employeeId,
+  //     //   reportingTo: values?.reportingTo,
+  //     // });
+  //     // updateUserProfile(values?.employeeId, values?.reportingTo);
+  //     // console.log("profile update:::", updateUserProfile);
 
-      const docRef = doc(db, "users", activeUser?.uid);
-      const docSnap = await getDoc(docRef);
+  //     const docRef = doc(db, "users", activeUser?.uid);
+  //     const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        console.log("Document data:", docSnap?.data());
-      }
-    } catch (error) {
-      return error;
-    }
-  };
+  //     if (docSnap.exists()) {
+  //       console.log("Document data:", docSnap?.data());
+  //     }
+  //   } catch (error) {
+  //     return error;
+  //   }
+  // };
 
   return (
     <div className="h-[80vh] flex justify-center items-center">
@@ -76,7 +78,7 @@ const ProfileUpdate = () => {
             <div className="flex justify-center items-center border border-primary-500 rounded-lg my-3">
               <Button
                 className="py-2 px-4"
-                onClick={submitHandler}
+                onClick={() => dispatch(userProfileAsync("manoj"))}
                 type="button"
               >
                 Submit

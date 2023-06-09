@@ -1,6 +1,7 @@
-import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import firebase from "./firebaseConfig.service";
 import { OAuthProvider, signInWithPopup } from "firebase/auth";
+import { useSelector } from "react-redux";
 
 const auth = firebase.auth;
 const db = firebase.db;
@@ -29,6 +30,7 @@ export const loginWithMicrosoft = async () => {
       reportingTo: "",
       phoneNumber: "",
     };
+
     if (!userDocSnap.exists()) {
       await setDoc(doc(db, "users", res.user.uid), userResults);
       return userResults;
@@ -39,3 +41,18 @@ export const loginWithMicrosoft = async () => {
     return error;
   }
 };
+
+// export const updateUserProfile = async (
+//   empId?: string,
+//   reportingTo?: string
+// ) => {
+//   const activeUser = useSelector((state: any) => state.data);
+//   const submitProfile = doc(db, "users", activeUser?.uid);
+//   console.log("firebase auth:", activeUser?.employeeId);
+
+//   await updateDoc(submitProfile, {
+//     profileStatus: "completed",
+//     employeeId: empId,
+//     reportingTo: reportingTo,
+//   });
+// };

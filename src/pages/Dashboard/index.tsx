@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-// import Text from "../../components/Text";
 import { useNavigate } from "react-router-dom";
+import Text from "../../components/Text";
 
 const Login = () => {
   const activeUser = useSelector((state: any) => state.data);
@@ -16,8 +16,13 @@ const Login = () => {
   }, [activeUser?.data, navigate]);
 
   return (
-    <section className="h-screen flex justify-center">
-      <p>Dashboard {activeUser?.displayName}</p>
+    <section className="h-screen flex-center flex-col">
+      <div>
+        <Text type={"h1"} children={activeUser?.displayName} />
+
+        <p>Employee Id:{activeUser?.employeeId}</p>
+      </div>
+      <p>reporting Id:{activeUser?.reportingTo}</p>
     </section>
   );
 };
