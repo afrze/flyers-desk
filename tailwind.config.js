@@ -8,6 +8,9 @@ export default {
           500: "#7a287d",
         },
       },
+      boxShadow: {
+        "3xl": "0px 4px 40px 1px rgba(0, 0, 0, 0.03)",
+      },
     },
   },
   plugins: [],

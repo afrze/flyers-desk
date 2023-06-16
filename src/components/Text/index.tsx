@@ -8,8 +8,8 @@ type Props = {
 
 const Text = ({ type, children, className }: Props) => {
   const textClass = classNames(
-    { "text-4xl": type === "h1" },
-    { "text-2xl": type === "h2" },
+    { "text-lg": type === "h1" },
+    { "text-base": type === "h2" },
     { "text-xl": type === "h3" },
     className
   );
