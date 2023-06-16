@@ -2,7 +2,7 @@ import classNames from "classnames";
 
 type Props = {
   type?: string;
-  children: JSX.Element | string;
+  children?: JSX.Element | string;
   className?: string;
 };
 

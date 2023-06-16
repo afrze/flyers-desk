@@ -1,7 +1,9 @@
+import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 import firebase from "./firebaseConfig.service";
 import { OAuthProvider, signInWithPopup } from "firebase/auth";
 
 const auth = firebase.auth;
+const db = firebase.db;
 
 export const loginWithMicrosoft = async () => {
   const provider = new OAuthProvider("microsoft.com");
@@ -13,6 +15,8 @@ export const loginWithMicrosoft = async () => {
 
   try {
     const res: any = await signInWithPopup(auth, provider);
+    const userDocRef = doc(db, "users", res.user.uid);
+    const userDocSnap = await getDoc(userDocRef);
     const userResults = {
       uid: res.user.uid,
       email: res.user.email,
@@ -20,8 +24,17 @@ export const loginWithMicrosoft = async () => {
       acessToken: res?.user?.stsTokenManager?.accessToken,
       refreshToken: res?.user?.stsTokenManager?.refreshToken,
       expirationTime: res?.user?.stsTokenManager?.expirationTime,
+      profileStatus: "pending",
+      employeeId: "",
+      reportingTo: "",
+      phoneNumber: "",
+    };
+    if (!userDocSnap.exists()) {
+      await setDoc(doc(db, "users", res.user.uid), userResults);
+      return userResults;
+    } else {
+      return userDocSnap?.data();
     }
-    return userResults;
   } catch (error) {
     return error;
   }

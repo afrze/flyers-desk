@@ -15,24 +15,30 @@ export const loginWithMicrosoftAsync: any | void = createAsyncThunk(
   }
 );
 
+export const addUserData: any | void = createAsyncThunk(
+  "UserSlice/addUserData",
+  async (data) => {
+    return data;
+  }
+);
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-   builder
-   .addCase (loginWithMicrosoftAsync.pending, (state) => {
-      state.loading = true;
-    })
-    .addCase (loginWithMicrosoftAsync.fulfilled, (state, { payload }) => {
-      state.loading = false;
-      state.data = payload;
-    })
-    .addCase (loginWithMicrosoftAsync.rejected, (state, { payload }) => {
-      state.loading = false;
-      state.error = { payload };
-    })
-  },      
+    builder
+      .addCase(loginWithMicrosoftAsync.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(loginWithMicrosoftAsync.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.data = payload;
+      })
+      .addCase(loginWithMicrosoftAsync.rejected, (state, { payload }) => {
+        state.loading = false;
+        state.error = { payload };
+      });
+  },
 });
 
-export default userSlice.reducer
+export default userSlice.reducer;

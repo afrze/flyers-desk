@@ -1,23 +1,25 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import Text from "../../components/Text";
 import { useSelector } from "react-redux";
+// import Text from "../../components/Text";
+import { useNavigate } from "react-router-dom";
 
-const DashBoard = () => {
+const Login = () => {
+  const activeUser = useSelector((state: any) => state.data);
   const navigate = useNavigate();
-  const activeUser = useSelector((state: any) => state.user);
 
   useEffect(() => {
-    if (!activeUser.data.acessToken) {
-      navigate("/login");
-    }
-  }, [activeUser.data.acessToken, navigate]);
+    if (activeUser?.uid) {
+      if (activeUser?.profileStatus === "pending") {
+        navigate("/profile-update");
+      }
+    } else navigate("/login");
+  }, [activeUser?.data, navigate]);
 
   return (
-    <div>
-      <Text type="h1">Dashboard</Text>
-    </div>
+    <section className="h-screen flex justify-center">
+      <p>Dashboard {activeUser?.displayName}</p>
+    </section>
   );
 };
 
-export default DashBoard;
+export default Login;
