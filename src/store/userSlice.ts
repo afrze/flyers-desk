@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   loginWithMicrosoft,
-  // updateUserProfile,
+  logoutProfile,
 } from "../services/firebaseAuth.service";
 
 const initialState = {
@@ -20,21 +20,17 @@ export const loginWithMicrosoftAsync: any | void = createAsyncThunk(
 export const userProfileAsync: any | void = createAsyncThunk(
   "UserSlice/Fetch",
   async (update: any) => {
+    console.log("eeeeeeee", update);
     return update;
   }
 );
 
-// export const userProfile = (update: any) => {
-//   return update;
-// };
-
-// export const updateUserProfileAsync: any | void = createAsyncThunk(
-//   "userSlice/profileUpdate",
-//   async (data) => {
-//     // const res: any = await updateUserProfile();
-//     return data;
-//   }
-// );
+export const logoutAsync: any | void = createAsyncThunk(
+  "userSlice/Logout",
+  async () => {
+    logoutProfile();
+  }
+);
 
 export const addUserData: any | void = createAsyncThunk(
   "UserSlice/addUserData",
@@ -60,21 +56,18 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = { payload };
       })
+      .addCase(userProfileAsync.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(userProfileAsync.fulfilled, (state, { payload }) => {
+        console.log("payload", payload);
+
         state.loading = false;
-        state.data = { ...payload };
+        state.data = payload;
+      })
+      .addCase(logoutAsync.fulfilled, (state) => {
+        state.data = {};
       });
-    // .addCase(updateUserProfileAsync.pending, (state) => {
-    //   state.loading = true;
-    // })
-    // .addCase(updateUserProfileAsync.fulfilled, (state, { payload }) => {
-    //   state.loading = false;
-    //   state.data = payload;
-    // });
-    // .addCase(updateUserProfileAsync.pending, (state, { payload }) => {
-    //   state.loading = false;
-    //   state.error = { payload };
-    // });
   },
 });
 

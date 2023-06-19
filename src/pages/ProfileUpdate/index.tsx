@@ -1,15 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Text from "../../components/Text";
-import { doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import firebaseConfig from "../../services/firebaseConfig.service";
-import { useDispatch, useSelector } from "react-redux";
-// import { updateUserProfile } from "../../services/firebaseAuth.service";
-import { userProfileAsync } from "../../store/userSlice";
+import { useSelector } from "react-redux";
 
 const ProfileUpdate = () => {
-  const dispatch = useDispatch();
+  const activeUser = useSelector((store: any) => store.data);
   const [values, setValues] = useState({
     employeeId: "",
     reportingTo: "",
@@ -19,28 +17,16 @@ const ProfileUpdate = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  // const submitHandler = async () => {
-  //   try {
-  //     // const submitProfile = doc(db, "users", activeUser?.uid);
-
-  //     // await updateDoc(submitProfile, {
-  //     //   profileStatus: "completed",
-  //     //   employeeId: values?.employeeId,
-  //     //   reportingTo: values?.reportingTo,
-  //     // });
-  //     // updateUserProfile(values?.employeeId, values?.reportingTo);
-  //     // console.log("profile update:::", updateUserProfile);
-
-  //     const docRef = doc(db, "users", activeUser?.uid);
-  //     const docSnap = await getDoc(docRef);
-
-  //     if (docSnap.exists()) {
-  //       console.log("Document data:", docSnap?.data());
-  //     }
-  //   } catch (error) {
-  //     return error;
-  //   }
-  // };
+  const updateProfile = async () => {
+    const submitProfile = doc(firebaseConfig.db, "users", activeUser?.uid);
+    await updateDoc(submitProfile, {
+      profileStatus: "completed",
+      employeeId: values?.employeeId,
+      reportingTo: values?.reportingTo,
+    });
+    try {
+    } catch (error) {}
+  };
 
   return (
     <div className="h-[80vh] flex justify-center items-center">
@@ -76,11 +62,7 @@ const ProfileUpdate = () => {
               />
             </div>
             <div className="flex justify-center items-center border border-primary-500 rounded-lg my-3">
-              <Button
-                className="py-2 px-4"
-                onClick={() => dispatch(userProfileAsync("manoj"))}
-                type="button"
-              >
+              <Button className="py-2 px-4" onClick={() => updateProfile()}>
                 Submit
               </Button>
             </div>
