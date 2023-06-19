@@ -38,6 +38,3 @@ const App = () => {
 };
 
 export default App;
-function unsub() {
-  throw new Error("Function not implemented.");
-}
