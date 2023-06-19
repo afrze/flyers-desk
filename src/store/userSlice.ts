@@ -1,5 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { loginWithMicrosoft } from "../services/firebaseAuth.service";
+import {
+  loginWithMicrosoft,
+  logoutProfile,
+} from "../services/firebaseAuth.service";
 
 const initialState = {
   data: {},
@@ -14,6 +17,20 @@ export const loginWithMicrosoftAsync: any | void = createAsyncThunk(
     return res;
   }
 );
+export const userProfileAsync: any | void = createAsyncThunk(
+  "UserSlice/Fetch",
+  async (update: any) => {
+    console.log("eeeeeeee", update);
+    return update;
+  }
+);
+
+export const logoutAsync: any | void = createAsyncThunk(
+  "userSlice/Logout",
+  async () => {
+    logoutProfile();
+  }
+);
 
 export const addUserData: any | void = createAsyncThunk(
   "UserSlice/addUserData",
@@ -21,6 +38,7 @@ export const addUserData: any | void = createAsyncThunk(
     return data;
   }
 );
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -37,6 +55,18 @@ const userSlice = createSlice({
       .addCase(loginWithMicrosoftAsync.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = { payload };
+      })
+      .addCase(userProfileAsync.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(userProfileAsync.fulfilled, (state, { payload }) => {
+        console.log("payload", payload);
+
+        state.loading = false;
+        state.data = payload;
+      })
+      .addCase(logoutAsync.fulfilled, (state) => {
+        state.data = {};
       });
   },
 });

@@ -1,6 +1,11 @@
-import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import firebase from "./firebaseConfig.service";
-import { OAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  OAuthProvider,
+  getAuth,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 
 const auth = firebase.auth;
 const db = firebase.db;
@@ -29,6 +34,7 @@ export const loginWithMicrosoft = async () => {
       reportingTo: "",
       phoneNumber: "",
     };
+
     if (!userDocSnap.exists()) {
       await setDoc(doc(db, "users", res.user.uid), userResults);
       return userResults;
@@ -38,4 +44,13 @@ export const loginWithMicrosoft = async () => {
   } catch (error) {
     return error;
   }
+};
+
+export const logoutProfile = async () => {
+  const auth = getAuth();
+  signOut(auth)
+    .then(() => {})
+    .catch((error) => {
+      // An error happened.
+    });
 };

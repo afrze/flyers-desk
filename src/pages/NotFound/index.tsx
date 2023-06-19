@@ -11,8 +11,15 @@ const NotFound = () => {
           Oops Page Not Found
         </Text>
         <span>
-          <Text type="h3" className="inline">Please go back to </Text>
-          <Link className="text-blue-500 text-xl hover:font-medium hover:transition-all" to="/">Home</Link>
+          <Text type="h3" className="inline">
+            Please go back to{" "}
+          </Text>
+          <Link
+            className="text-blue-500 text-xl hover:font-medium hover:transition-all"
+            to="/"
+          >
+            Home
+          </Link>
         </span>
       </div>
     </div>

@@ -2,14 +2,12 @@ import { useState } from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Text from "../../components/Text";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import firebaseConfig from "../../services/firebaseConfig.service";
 import { useSelector } from "react-redux";
 
 const ProfileUpdate = () => {
-  const db = firebaseConfig.db;
-  const activeUser = useSelector((state: any) => state.data);
-
+  const activeUser = useSelector((store: any) => store.data);
   const [values, setValues] = useState({
     employeeId: "",
     reportingTo: "",
@@ -19,25 +17,15 @@ const ProfileUpdate = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  const submitHandler = async () => {
+  const updateProfile = async () => {
+    const submitProfile = doc(firebaseConfig.db, "users", activeUser?.uid);
+    await updateDoc(submitProfile, {
+      profileStatus: "completed",
+      employeeId: values?.employeeId,
+      reportingTo: values?.reportingTo,
+    });
     try {
-      const submitProfile = doc(db, "users", activeUser?.uid);
-
-      await updateDoc(submitProfile, {
-        profileStatus: "completed",
-        employeeId: values?.employeeId,
-        reportingTo: values?.reportingTo,
-      });
-
-      const docRef = doc(db, "users", activeUser?.uid);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        console.log("Document data:", docSnap?.data());
-      }
-    } catch (error) {
-      return error;
-    }
+    } catch (error) {}
   };
 
   return (
@@ -74,11 +62,7 @@ const ProfileUpdate = () => {
               />
             </div>
             <div className="flex justify-center items-center border border-primary-500 rounded-lg my-3">
-              <Button
-                className="py-2 px-4"
-                onClick={submitHandler}
-                type="button"
-              >
+              <Button className="py-2 px-4" onClick={() => updateProfile()}>
                 Submit
               </Button>
             </div>
