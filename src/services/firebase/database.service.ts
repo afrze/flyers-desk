@@ -12,6 +12,7 @@ export function userProfileListener(uid: string) {
         dispatch(userProfileAsync(doc.data()));
         console.log("Current data: ", doc.data()?.profileStatus);
       });
+      console.log(unsub);
     }
   }, [uid]);
 }

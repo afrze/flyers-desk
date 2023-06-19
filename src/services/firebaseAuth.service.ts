@@ -51,6 +51,6 @@ export const logoutProfile = async () => {
   signOut(auth)
     .then(() => {})
     .catch((error) => {
-      // An error happened.
+      console.log(error);
     });
 };
