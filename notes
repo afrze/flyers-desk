@@ -1,9 +1,0 @@
-# firebase setup
-
-- initilased in service folder created a file firebase.config
-
-# Issues faced while creating Auth
-
-- I have faced issue while using `useSelector` not understood the `useSelector`, i have called wrong name of the store, received `undefined` data.
-- have to console the `useSelector` so that we will be known how the store is saved with the naming.
-- & have faced issue that i have initialized `useSelector` above the `const` it throws an error.
