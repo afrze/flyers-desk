@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const activeUser = useSelector((state: any) => state.data);
+  const activeUser = useSelector((state: any) => state.user.data);
   const navigate = useNavigate();
 
   const clickHandler = () => {

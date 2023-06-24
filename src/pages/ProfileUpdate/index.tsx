@@ -2,12 +2,11 @@ import { useState } from "react";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import Text from "../../components/Text";
-import { doc, updateDoc } from "firebase/firestore";
-import firebaseConfig from "../../services/firebaseConfig.service";
 import { useSelector } from "react-redux";
+import { updateProfile } from "../../services/firebase/database.service";
 
 const ProfileUpdate = () => {
-  const activeUser = useSelector((store: any) => store.data);
+  const activeUser = useSelector((store: any) => store.user.data);
   const [values, setValues] = useState({
     employeeId: "",
     reportingTo: "",
@@ -17,15 +16,16 @@ const ProfileUpdate = () => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  const updateProfile = async () => {
-    const submitProfile = doc(firebaseConfig.db, "users", activeUser?.uid);
-    await updateDoc(submitProfile, {
-      profileStatus: "completed",
-      employeeId: values?.employeeId,
-      reportingTo: values?.reportingTo,
-    });
+  const updateProfileHandler = async () => {
     try {
-    } catch (error) {}
+      updateProfile(activeUser?.uid, {
+        profileStatus: "completed",
+        employeeId: values?.employeeId,
+        reportingTo: values?.reportingTo,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -62,7 +62,10 @@ const ProfileUpdate = () => {
               />
             </div>
             <div className="flex justify-center items-center border border-primary-500 rounded-lg my-3">
-              <Button className="py-2 px-4" onClick={() => updateProfile()}>
+              <Button
+                className="py-2 px-4"
+                onClick={() => updateProfileHandler()}
+              >
                 Submit
               </Button>
             </div>

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   loginWithMicrosoft,
   logoutProfile,
-} from "../services/firebaseAuth.service";
+} from "../services/firebase/auth.service";
 
 const initialState = {
   data: {},
@@ -54,7 +54,7 @@ const userSlice = createSlice({
       })
       .addCase(loginWithMicrosoftAsync.rejected, (state, { payload }) => {
         state.loading = false;
-        state.error = { payload };
+        state.error = payload;
       })
       .addCase(userProfileAsync.pending, (state) => {
         state.loading = true;
