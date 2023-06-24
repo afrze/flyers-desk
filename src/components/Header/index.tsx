@@ -23,13 +23,7 @@ const Header = () => {
         </Button>
         {isOpen && <Navbar />}
 
-        {/* <Text
-          className="hidden md:block whitespace-nowrap"
-          type="h1"
-          children={`Welcome! ${displayName}`}
-        /> */}
         <div className="flex items-center">
-          {/* <NotifyIcon className="mr-2" /> */}
           <div className="flex items-center">
             <UserIcons className="mr-2" />
             <Text

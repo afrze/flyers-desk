@@ -60,8 +60,6 @@ const userSlice = createSlice({
         state.loading = true;
       })
       .addCase(userProfileAsync.fulfilled, (state, { payload }) => {
-        console.log("payload", payload);
-
         state.loading = false;
         state.data = payload;
       })
