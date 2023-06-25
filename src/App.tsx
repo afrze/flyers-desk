@@ -31,9 +31,12 @@ const App = () => {
               </ProtectedRoute>
             }
           >
-            <Route path="purchase-request" element={<PurchaseRequest />} />
-            <Route path="issues" element={<IssuesTickets />} />
-            <Route path="open-ticket" element={<OpenTicket />} />
+            <Route
+              path={routes.purchase_request}
+              element={<PurchaseRequest />}
+            />
+            <Route path={routes.issues} element={<IssuesTickets />} />
+            <Route path={routes.open_ticket} element={<OpenTicket />} />
           </Route>
           <Route
             path={routes.profile_update}
@@ -43,7 +46,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          <Route path="/login" element={<Login />} />
+          <Route path={routes.login} element={<Login />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
