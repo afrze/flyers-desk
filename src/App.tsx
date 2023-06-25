@@ -9,6 +9,7 @@ import { useProfileListener } from "./services/firebase/database.service";
 import PurchaseRequest from "./pages/PurchaseRequest";
 import IssuesTickets from "./pages/Issues";
 import OpenTicket from "./pages/OpenTicket";
+import routes from "./routes/routes";
 
 const App = () => {
   const activeUser = useSelector((state: any) => state.user.data);
@@ -31,7 +32,7 @@ const App = () => {
             <Route path="open-ticket" element={<OpenTicket />} />
           </Route>
           <Route
-            path="/profile-update"
+            path={routes.profile_update}
             element={
               <ProtectedRoute>
                 <ProfileUpdate />

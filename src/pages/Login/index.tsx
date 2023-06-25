@@ -5,6 +5,7 @@ import Button from "../../components/Button";
 import Text from "../../components/Text";
 import { loginWithMicrosoftAsync } from "../../store/userSlice";
 import { useNavigate } from "react-router-dom";
+import routes from "../../routes/routes";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const Login = () => {
   useEffect(() => {
     console.log("activeUser?.data?.profileStatus", activeUser);
     if (activeUser?.profileStatus === "pending") {
-      navigate("/profile-update");
+      navigate(routes.profile_update);
     } else if (activeUser?.profileStatus === "completed") {
       navigate("/");
     }

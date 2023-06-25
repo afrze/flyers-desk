@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { DashboardIcon, TicketIcon } from "../../assets/icons";
 import Text from "../Text";
+import routes from "../../routes/routes";
 
 const DeskNavbar = () => {
   return (
@@ -11,13 +12,13 @@ const DeskNavbar = () => {
             <DashboardIcon className="mr-2" />
             <Text className="" children="Dashboard" />
           </li>
-          <Link to="/purchase-request">
+          <Link to={routes.purchase_request}>
             <li className="flex items-center pt-4 whitespace-nowrap">
               <TicketIcon className="mr-2" />
               <Text className="" children="Purchase Request" />
             </li>
           </Link>
-          <Link to="/issues">
+          <Link to={routes.issues}>
             <li className="flex items-center pt-4 whitespace-nowrap">
               <TicketIcon className="mr-2" />
               <Text className="" children="Issues" />

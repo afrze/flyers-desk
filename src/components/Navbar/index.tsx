@@ -7,6 +7,7 @@ import { FaTimes } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleSideBar } from "../../store/toggleSlice";
 import DeskNavbar from "../DeskNavbar";
+import routes from "../../routes/routes";
 
 const Navbar = () => {
   const { isOpen } = useSelector((store: any) => store?.toggle);
@@ -41,13 +42,13 @@ const Navbar = () => {
                 <DashboardIcon className="mr-2" />
                 <Text className=" md:block" children="Dashboard" />
               </li>
-              <Link to="/purchase-request">
+              <Link to={routes.purchase_request}>
                 <li className="flex items-center pt-4 whitespace-nowrap">
                   <TicketIcon className="mr-2" />
                   <Text className=" md:block" children="Purchase Request" />
                 </li>
               </Link>
-              <Link to="/issues">
+              <Link to={routes.issues}>
                 <li className="flex items-center pt-4 whitespace-nowrap">
                   <TicketIcon className="mr-2" />
                   <Text className=" md:block" children="Issues" />
