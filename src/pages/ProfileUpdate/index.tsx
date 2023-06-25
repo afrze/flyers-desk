@@ -63,7 +63,7 @@ const ProfileUpdate = () => {
             </div>
             <div className="flex justify-center items-center border border-primary-500 rounded-lg my-3">
               <Button
-                className="py-2 px-4"
+                className="py-2 px-4 w-full"
                 onClick={() => updateProfileHandler()}
               >
                 Submit
