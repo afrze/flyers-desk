@@ -33,7 +33,7 @@ const ProfileUpdate = () => {
       <div className="w-full border-[#f8f9fa] p-5 border-2 sm:w-1/2">
         <div>
           <Text type="h2" className="text-primary-500 py-2">
-            Welcome To, Flyer's Soft
+            Welcome To, Flyers Soft
           </Text>
           <Text type="p" className="text-gray-500 py-2">
             Please Update Your Profile
@@ -47,7 +47,7 @@ const ProfileUpdate = () => {
                 value={values?.employeeId}
                 name="employeeId"
                 type="text"
-                placeholder="Employee ID ID"
+                placeholder="Employee ID"
                 onChange={changeHandler}
               />
             </div>
