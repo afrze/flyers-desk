@@ -27,7 +27,11 @@ const Button = ({
   );
 
   return (
-    <button className={buttonClasses} type="button" onClick={onClick}>
+    <button
+      className={`${buttonClasses} rounded flex items-center justify-center p-2 text-[#000000]`}
+      type="button"
+      onClick={onClick}
+    >
       {prefix ? prefix : null}
       {children}
       {suffix ? suffix : null}

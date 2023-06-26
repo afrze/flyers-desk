@@ -1,10 +1,17 @@
-import { onSnapshot, doc } from "firebase/firestore";
+import {
+  onSnapshot,
+  doc,
+  updateDoc,
+  addDoc,
+  collection,
+} from "firebase/firestore";
 import { useEffect } from "react";
 import { userProfileAsync } from "../../store/userSlice";
-import firebaseConfig from "../firebaseConfig.service";
 import { useDispatch } from "react-redux";
+import firebaseConfig from "./config";
+import { TicketInterface } from "../../interface/ticket.interface";
 
-export function userProfileListener(uid: string) {
+export function useProfileListener(uid: string) {
   const dispatch = useDispatch();
   useEffect(() => {
     if (uid) {
@@ -15,4 +22,17 @@ export function userProfileListener(uid: string) {
       console.log(unsub);
     }
   }, [uid]);
+}
+
+export async function updateProfile(uid: string, data: any) {
+  try {
+    const userProfileRef = doc(firebaseConfig.db, "users", uid);
+    await updateDoc(userProfileRef, data);
+  } catch (error) {
+    return "Something went wrong";
+  }
+}
+
+export async function createTicket(data: TicketInterface) {
+  await addDoc(collection(firebaseConfig.db, "tickets"), data);
 }
