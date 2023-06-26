@@ -4,12 +4,67 @@ import Input from "../../components/Input";
 import Text from "../../components/Text";
 import { useSelector } from "react-redux";
 import { updateProfile } from "../../services/firebase/database.service";
+import Dropdown from "../../components/Dropdown";
 
 const ProfileUpdate = () => {
   const activeUser = useSelector((store: any) => store.user.data);
   const [values, setValues] = useState({
     employeeId: "",
     reportingTo: "",
+    department: "",
+  });
+
+  const department = [
+    {
+      label: "frontend",
+      value: "Frontend",
+    },
+    {
+      label: "backend",
+      value: "Backend",
+    },
+    {
+      label: "ui-ux",
+      value: "UI / UX",
+    },
+    {
+      label: "qa",
+      value: "Quality Assurance",
+    },
+    {
+      label: "gaming",
+      value: "Game Development",
+    },
+    {
+      label: "mobile",
+      value: "Mobile Development",
+    },
+    {
+      label: "sales",
+      value: "Sales",
+    },
+    {
+      label: "finance",
+      value: "Finance",
+    },
+    {
+      label: "infra",
+      value: "Infra",
+    },
+    {
+      label: "operations",
+      value: "Operations",
+    },
+    {
+      label: "hr",
+      value: "HR",
+    },
+  ];
+
+  const departmentOptions: any = [];
+
+  department.forEach((item) => {
+    departmentOptions.push(item.value);
   });
 
   const changeHandler = (e: any) => {
@@ -26,6 +81,10 @@ const ProfileUpdate = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const dropChangeHandler = (e: any) => {
+    setValues({ ...values, department: e.target.value });
   };
 
   return (
@@ -59,6 +118,16 @@ const ProfileUpdate = () => {
                 type="text"
                 placeholder="Reporting To ID"
                 onChange={changeHandler}
+              />
+            </div>
+            <div className="py-4">
+              <Dropdown
+                className="w-full p-3 focus:outline-none"
+                label="Request Ticket Type"
+                options={departmentOptions}
+                name="Department"
+                type="text"
+                onChange={dropChangeHandler}
               />
             </div>
             <div className="flex justify-center items-center border border-primary-500 rounded-lg my-3">

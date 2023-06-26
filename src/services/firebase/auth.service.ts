@@ -22,19 +22,34 @@ export const loginWithMicrosoft = async () => {
     const res: any = await signInWithPopup(auth, provider);
     const userDocRef = doc(db, "users", res.user.uid);
     const userDocSnap = await getDoc(userDocRef);
+    const user = res.user;
     const userResults = {
-      uid: res.user.uid,
-      email: res.user.email,
-      displayName: res.user.displayName,
-      acessToken: res?.user?.stsTokenManager?.accessToken,
-      refreshToken: res?.user?.stsTokenManager?.refreshToken,
-      expirationTime: res?.user?.stsTokenManager?.expirationTime,
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      acessToken: user?.stsTokenManager?.accessToken,
+      refreshToken: user?.stsTokenManager?.refreshToken,
+      expirationTime: user?.stsTokenManager?.expirationTime,
+      // ...res?.user,
       profileStatus: "pending",
       employeeId: "",
       reportingTo: "",
       phoneNumber: "",
+      department: [
+        "front-end",
+        "back-end",
+        "ui-ux",
+        "quality-assurance",
+        "unity",
+        "sales",
+        "finance",
+        "infra",
+        "operations",
+        "hr",
+      ],
     };
 
+    console.log("object22", userResults);
     if (!userDocSnap.exists()) {
       await setDoc(doc(db, "users", res.user.uid), userResults);
       return userResults;
