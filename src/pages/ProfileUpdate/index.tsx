@@ -88,6 +88,10 @@ const ProfileUpdate = () => {
     }
   };
 
+  const dropChangeHandler = (e: any) => {
+    setValues({ ...values, department: e.target.value });
+  };
+
   return (
     <div className="h-[80vh] flex justify-center items-center">
       <div className="w-full border-[#f8f9fa] p-5 border-2 sm:w-1/2">
