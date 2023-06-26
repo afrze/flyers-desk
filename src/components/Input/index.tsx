@@ -11,6 +11,7 @@ type Props = {
   labelClassName?: string;
   fontType?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  disabled?: any;
 };
 
 const Input = ({
@@ -23,6 +24,7 @@ const Input = ({
   labelClassName,
   fontType,
   onChange,
+  disabled,
 }: Props) => {
   return (
     <div className="flex flex-col">
@@ -36,6 +38,7 @@ const Input = ({
         name={name}
         onChange={onChange}
         value={value}
+        disabled={disabled}
       />
     </div>
   );

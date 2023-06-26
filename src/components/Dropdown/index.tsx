@@ -1,18 +1,31 @@
 import Text from "../Text";
 
-const Dropdown = ({ label, className, fontType, options }: any) => {
+const Dropdown = ({
+  label,
+  className,
+  fontType,
+  options,
+  name,
+  value,
+  onChange,
+}: any) => {
   return (
     <>
       <label className={className}>
         <Text type={fontType} children={label} />
       </label>
-      <div className="border py-2 outline-none">
+      <select
+        name={name}
+        value={value}
+        onChange={onChange}
+        className="border py-2 outline-none px-4"
+      >
         {options?.map((option: string, index: any) => (
-          <div key={index}>
+          <option key={index}>
             <Text type="h6" children={option} />
-          </div>
+          </option>
         ))}
-      </div>
+      </select>
     </>
   );
 };
