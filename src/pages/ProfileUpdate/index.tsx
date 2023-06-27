@@ -15,10 +15,6 @@ const ProfileUpdate = () => {
   });
 
   const department = [
-    // {
-    //   label: "select department",
-    //   value: "Select Department",
-    // },
     {
       label: "selectDepartment",
       value: "Select Department",
