@@ -13,8 +13,8 @@ const Dropdown = ({
 }: any) => {
   return (
     <>
-      <label className={labelClassName}>
-        <Text className={textClassName} type={fontType} children={label} />
+      <label className="py-2">
+        <Text className="py-2" type={fontType} children={label} />
       </label>
       <select
         name={name}
