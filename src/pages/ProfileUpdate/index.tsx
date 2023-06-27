@@ -15,6 +15,10 @@ const ProfileUpdate = () => {
   });
 
   const department = [
+    // {
+    //   label: "select department",
+    //   value: "Select Department",
+    // },
     {
       label: "selectDepartment",
       value: "Select Department",
@@ -86,10 +90,6 @@ const ProfileUpdate = () => {
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const dropChangeHandler = (e: any) => {
-    setValues({ ...values, department: e.target.value });
   };
 
   return (
