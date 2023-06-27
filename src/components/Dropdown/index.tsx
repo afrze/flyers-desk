@@ -12,7 +12,7 @@ const Dropdown = ({
   return (
     <>
       <label className="py-2">
-        <Text type={fontType} children={label} />
+        <Text className="py-2" type={fontType} children={label} />
       </label>
       <select
         name={name}

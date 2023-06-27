@@ -11,14 +11,10 @@ const ProfileUpdate = () => {
   const [values, setValues] = useState({
     employeeId: "",
     reportingTo: "",
-    department: "Front End",
+    department: "Select Department",
   });
 
   const department = [
-    // {
-    //   label: "select department",
-    //   value: "Select Department",
-    // },
     {
       label: "frontend",
       value: "Front End",
@@ -126,8 +122,6 @@ const ProfileUpdate = () => {
             </div>
             <div className="py-2">
               <Dropdown
-                textClassName="py-2"
-                labelClassName="py-2"
                 className="w-full"
                 label="Department"
                 options={departmentOptions}
