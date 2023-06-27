@@ -35,18 +35,7 @@ export const loginWithMicrosoft = async () => {
       employeeId: "",
       reportingTo: "",
       phoneNumber: "",
-      department: [
-        "front-end",
-        "back-end",
-        "ui-ux",
-        "quality-assurance",
-        "unity",
-        "sales",
-        "finance",
-        "infra",
-        "operations",
-        "hr",
-      ],
+      department: "",
     };
 
     console.log("object22", userResults);

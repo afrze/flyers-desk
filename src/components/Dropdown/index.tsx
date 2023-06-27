@@ -11,7 +11,7 @@ const Dropdown = ({
 }: any) => {
   return (
     <>
-      <label className={className}>
+      <label className="py-2">
         <Text type={fontType} children={label} />
       </label>
       <select

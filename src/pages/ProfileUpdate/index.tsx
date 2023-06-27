@@ -11,17 +11,21 @@ const ProfileUpdate = () => {
   const [values, setValues] = useState({
     employeeId: "",
     reportingTo: "",
-    department: "",
+    department: "Front End",
   });
 
   const department = [
+    // {
+    //   label: "select department",
+    //   value: "Select Department",
+    // },
     {
       label: "frontend",
-      value: "Frontend",
+      value: "Front End",
     },
     {
       label: "backend",
-      value: "Backend",
+      value: "Back End",
     },
     {
       label: "ui-ux",
@@ -69,7 +73,9 @@ const ProfileUpdate = () => {
 
   const changeHandler = (e: any) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+    console.log("object", e.target.name);
   };
+  console.log("values", values);
 
   const updateProfileHandler = async () => {
     try {
@@ -77,14 +83,12 @@ const ProfileUpdate = () => {
         profileStatus: "completed",
         employeeId: values?.employeeId,
         reportingTo: values?.reportingTo,
+        department: values?.department,
       });
+      console.log("object", values.department);
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const dropChangeHandler = (e: any) => {
-    setValues({ ...values, department: e.target.value });
   };
 
   return (
@@ -120,14 +124,16 @@ const ProfileUpdate = () => {
                 onChange={changeHandler}
               />
             </div>
-            <div className="py-4">
+            <div className="py-2">
               <Dropdown
-                className="w-full p-3 focus:outline-none"
-                label="Request Ticket Type"
+                textClassName="py-2"
+                labelClassName="py-2"
+                className="w-full"
+                label="Department"
                 options={departmentOptions}
-                name="Department"
-                type="text"
-                onChange={dropChangeHandler}
+                name="department"
+                value={values.department}
+                onChange={changeHandler}
               />
             </div>
             <div className="flex justify-center items-center border border-primary-500 rounded-lg my-3">
