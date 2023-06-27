@@ -1,12 +1,27 @@
 import Text from "../Text";
 
-const Dropdown = ({ label, className, fontType, options, onChange }: any) => {
+const Dropdown = ({
+  label,
+  className,
+  fontType,
+  options,
+  onChange,
+  value,
+  name,
+  labelClassName,
+  textClassName,
+}: any) => {
   return (
     <>
-      <label className={className}>
-        <Text type={fontType} children={label} />
+      <label className="py-2">
+        <Text className="py-2" type={fontType} children={label} />
       </label>
-      <select onChange={onChange} className="border py-2 outline-none">
+      <select
+        name={name}
+        value={value}
+        onChange={onChange}
+        className={`${className} border py-2`}
+      >
         {options?.map((option: string, index: any) => (
           <option key={index}>
             <Text type="h6" children={option} />
