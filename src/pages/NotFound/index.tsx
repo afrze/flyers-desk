@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Text from "../../components/Text";
-import { FlyerssoftLogo } from "../../assets";
+import { FlyerssoftLogo } from "../../assets/icons";
 
 const NotFound = () => {
   return (

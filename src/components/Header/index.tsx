@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import Text from "../Text";
-import { NotifyIcon, UserIcon } from "../../assets/icons";
+// import { NotifyIcon, UserIcon } from "../../assets/icons";
 import Button from "../Button";
 import { logoutAsync } from "../../store/userSlice";
 
@@ -12,9 +12,9 @@ const Header = () => {
       <div className="flex-between">
         <Text type="h1" children={`Welcome! ${displayName}`} />
         <div className="flex items-center">
-          <NotifyIcon className="mr-2" />
+          {/* <NotifyIcon className="mr-2" /> */}
           <div className="flex items-center">
-            <UserIcon className="mr-2" />
+            {/* <UserIcon className="mr-2" /> */}
             <Text type="h2" children={displayName} />
           </div>
           <Button onClick={() => dispatch(logoutAsync())}>Logout</Button>

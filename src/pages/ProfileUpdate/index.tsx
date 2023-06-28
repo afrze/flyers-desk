@@ -24,8 +24,6 @@ const ProfileUpdate = () => {
       employeeId: values?.employeeId,
       reportingTo: values?.reportingTo,
     });
-    try {
-    } catch (error) {}
   };
 
   return (

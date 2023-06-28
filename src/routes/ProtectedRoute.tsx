@@ -5,7 +5,7 @@ import Login from "../pages/Login";
 
 const ProtectedRoute = ({ children }: { children: any }) => {
   const user = useSelector((state: any) => state.data);
-  let location = useLocation();
+  const location = useLocation();
   const profileUpdateRoute = "/profile-update";
   if (!user?.uid) {
     console.log("check route login");

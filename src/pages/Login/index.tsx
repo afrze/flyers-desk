@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FlyerssoftLogo, MicrosoftLogo } from "../../assets";
+import { FlyerssoftLogo, MicrosoftLogo } from "../../assets/icons";
 import Button from "../../components/Button";
 import Text from "../../components/Text";
 import { loginWithMicrosoftAsync } from "../../store/userSlice";
@@ -22,7 +22,7 @@ const Login = () => {
     } else if (activeUser?.profileStatus === "completed") {
       navigate("/");
     }
-  }, [activeUser?.profileStatus, navigate]);
+  }, [activeUser?.profileStatus, navigate, activeUser]);
 
   return (
     <section className="h-screen flex justify-center">

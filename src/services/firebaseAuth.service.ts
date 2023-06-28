@@ -49,7 +49,7 @@ export const loginWithMicrosoft = async () => {
 export const logoutProfile = async () => {
   const auth = getAuth();
   signOut(auth)
-    .then(() => {})
+    .then((res) => { console.log(res)})
     .catch((error) => {
       console.log(error);
     });
