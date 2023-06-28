@@ -1,5 +1,10 @@
 export interface TicketInterface {
-  assigned_to: null | string;
+  assignee: {
+    uid: string;
+    employee_id: string;
+    name: string;
+    email: string;
+  };
   report_to: null | string;
   created_by: {
     name: string;
@@ -17,5 +22,5 @@ export interface TicketInterface {
   type: "purchase" | "issue";
   status: "pending" | "processing" | "completed";
   created_at: Date;
-  resolved_at: Date;
+  resolved_at: Date | null;
 }
