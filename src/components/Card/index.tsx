@@ -5,7 +5,7 @@ import Text from "../Text";
 const Card = ({ displayTicket }: any) => {
   console.log("displayTicket card", displayTicket);
   return (
-    <>
+    <div>
       <div className="flex-center justify-between">
         <Text
           type="h4"
@@ -45,7 +45,7 @@ const Card = ({ displayTicket }: any) => {
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

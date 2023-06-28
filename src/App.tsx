@@ -13,11 +13,11 @@ import PurchaseRequest from "./pages/PurchaseRequest";
 import IssuesTickets from "./pages/Issues";
 import OpenTicket from "./pages/OpenTicket";
 import routes from "./routes/routes";
+import AllTickets from "./pages/AllTickets";
 
 const App = () => {
   const activeUser = useSelector((state: any) => state.user.data);
   useProfileListener(activeUser?.uid);
-  useTicketListener();
 
   return (
     <>
@@ -37,6 +37,7 @@ const App = () => {
             />
             <Route path={routes.issues} element={<IssuesTickets />} />
             <Route path={routes.open_ticket} element={<OpenTicket />} />
+            <Route path={routes.all_tickets} element={<AllTickets />} />
           </Route>
           <Route
             path={routes.profile_update}
