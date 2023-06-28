@@ -7,6 +7,7 @@ import {
   addDoc,
   collection,
   query,
+  where,
 } from "firebase/firestore";
 import { useEffect } from "react";
 import { userProfileAsync } from "../../store/userSlice";
@@ -40,17 +41,34 @@ export async function createTicket(data: TicketInterface) {
   await addDoc(collection(firebaseConfig.db, "tickets"), data);
 }
 
-export function useTicketListener() {
+export function useTicketListener(department: string, uid: string) {
   const dispatch = useDispatch();
   useEffect(() => {
-    const q = query(collection(firebaseConfig.db, "tickets"));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const ticketArr: any = [];
-      querySnapshot.forEach((doc) => {
-        ticketArr.push({ ...doc.data() });
+    if (department === "Infra") {
+      const q = query(collection(firebaseConfig.db, "tickets"));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const ticketArr: any = [];
+        querySnapshot.forEach((doc) => {
+          ticketArr.push({ ...doc.data() });
+        });
+        dispatch(createTicketAsync(ticketArr));
       });
-      dispatch(createTicketAsync(ticketArr));
-    });
-    return () => unsubscribe();
+      return () => unsubscribe();
+    } else {
+      const q = query(
+        collection(firebaseConfig.db, "tickets"),
+        where("created_by.uid", "==", uid)
+      );
+      console.log("q", q, uid, department);
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const ticketArr: any = [];
+        querySnapshot.forEach((doc) => {
+          console.log("doc", doc);
+          ticketArr.push({ ...doc.data() });
+        });
+        dispatch(createTicketAsync(ticketArr));
+      });
+      return () => unsubscribe();
+    }
   }, []);
 }
