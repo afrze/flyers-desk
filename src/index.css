@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,13 +6,31 @@
 /* @layer components { */
 .flex-center {
   display: flex;
-  justify-content: center;
   align-items: center;
 }
-.flex-between {
+
+.font-montserrat {
+  font-family: "Montserrat";
+  font-weight: 500;
+}
+
+.mobile-nav-container {
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #f5f5f5;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: 30px 16px;
+  position: fixed;
+  border-radius: 0px 10px 10px 0px;
+  -webkit-box-shadow: 2px 2px 10px 0px rgba(245, 245, 245, 1);
+  -moz-box-shadow: 2px 2px 10px 0px rgba(245, 245, 245, 1);
+  box-shadow: 2px 2px 10px 0px rgba(245, 245, 245, 1);
+}
+
+.mobile-nav {
+  display: flex;
+  padding: 45px 0px;
 }
 
 /* } */

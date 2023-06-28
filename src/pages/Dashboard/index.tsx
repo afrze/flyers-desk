@@ -1,17 +1,12 @@
-import Header from "../../components/Header";
-import Navbar from "../../components/Navbar";
+import { Outlet } from "react-router-dom";
+import Layout from "../../components/Layout";
 
-const Login = () => {
+const Dashboard = () => {
   return (
-    <section className="h-screen w-full flex">
-      <div className="w-[20%]">
-        <Navbar />
-      </div>
-      <div className="w-[85%]">
-        <Header />
-      </div>
-    </section>
+    <Layout>
+      <Outlet />
+    </Layout>
   );
 };
 
-export default Login;
+export default Dashboard;
