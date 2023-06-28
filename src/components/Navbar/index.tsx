@@ -54,6 +54,12 @@ const Navbar = () => {
                   <Text className=" md:block" children="Issues" />
                 </li>
               </Link>
+              <Link to={routes.all_tickets}>
+                <li className="flex items-center pt-4 whitespace-nowrap">
+                  <TicketIcon className="mr-2" />
+                  <Text className=" md:block" children="All Tickets" />
+                </li>
+              </Link>
             </ul>
           </div>
         </div>

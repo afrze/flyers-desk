@@ -22,6 +22,7 @@
   display: flex;
   padding: 30px 16px;
   position: fixed;
+  flex-direction: column;
   border-radius: 0px 10px 10px 0px;
   -webkit-box-shadow: 2px 2px 10px 0px rgba(245, 245, 245, 1);
   -moz-box-shadow: 2px 2px 10px 0px rgba(245, 245, 245, 1);
@@ -30,7 +31,28 @@
 
 .mobile-nav {
   display: flex;
-  padding: 45px 0px;
+  padding: 20px 0px;
+}
+
+.new-ticket-outer {
+  background: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+}
+
+.new-ticket-container {
+  position: fixed;
+  background: #ffffff;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  border: 1px solid #f5f5f5;
+  border-radius: 10px;
+  padding: 20px 26px;
 }
 
 /* } */

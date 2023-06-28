@@ -2,30 +2,33 @@ import { Link } from "react-router-dom";
 import { UserIcons } from "../../assets/icons";
 import Text from "../Text";
 
-const Card = () => {
+const Card = ({ displayTicket }: any) => {
+  console.log("displayTicket card", displayTicket);
   return (
-    <>
+    <div>
       <div className="flex-center justify-between">
         <Text
           type="h4"
           className="text-[#2E2C34] font-semibold font-[Montserrat]"
-          children="Ticket# 2023-CS123"
+          children="CS123"
         />
         <Text
           type="h6"
-          className="font-montserrat text-[#84818A]"
-          children="Posted at 12:45 AM"
+          className="whitespace-nowrap font-montserrat text-[#84818A]"
+          children={`Posted at ${new Date(
+            displayTicket?.created_at.seconds
+          ).toLocaleDateString()}`}
         />
       </div>
       <Text
         type="h5"
-        className="text-[#2E2C34] font-montserrat pt-2"
-        children="How to deposit money to my portal?"
+        className="capitalize text-[#2E2C34] font-montserrat pt-2"
+        children={displayTicket?.title}
       />
       <Text
         type="h6"
         className="font-montserrat text-[#84818A] py-4"
-        children="Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        children={displayTicket?.description}
       />
       <div className="flex-center justify-between border-t pt-3">
         <div className="flex-center">
@@ -33,7 +36,7 @@ const Card = () => {
           <Text
             type="h5"
             className="font-montserrat text-[#84818A]"
-            children="John Snow"
+            children={displayTicket?.created_by?.name}
           />
         </div>
         <div>
@@ -42,7 +45,7 @@ const Card = () => {
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

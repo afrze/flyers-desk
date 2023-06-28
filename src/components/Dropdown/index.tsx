@@ -5,11 +5,9 @@ const Dropdown = ({
   className,
   fontType,
   options,
-  onChange,
-  value,
   name,
-  labelClassName,
-  textClassName,
+  value,
+  onChange,
 }: any) => {
   return (
     <>
@@ -20,7 +18,7 @@ const Dropdown = ({
         name={name}
         value={value}
         onChange={onChange}
-        className={`${className} border py-2`}
+        className="border py-2 outline-none px-4"
       >
         {options?.map((option: string, index: any) => (
           <option key={index}>
