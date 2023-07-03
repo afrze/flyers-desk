@@ -10,10 +10,9 @@ import {
   where,
 } from "firebase/firestore";
 import { useEffect } from "react";
-import { userProfileAsync } from "../../store/userSlice";
 import { useDispatch } from "react-redux";
 import firebaseConfig from "./config";
-import { TicketInterface } from "../../interface/ticket.interface";
+import { userProfileAsync } from "../../store/userSlice";
 import { createTicketAsync } from "../../store/ticketSlice";
 
 export function useProfileListener(uid: string) {
@@ -23,7 +22,7 @@ export function useProfileListener(uid: string) {
       const unsub = onSnapshot(doc(firebaseConfig.db, "users", uid), (doc) => {
         dispatch(userProfileAsync(doc.data()));
       });
-      console.log(unsub);
+      return () => unsub();
     }
   }, [dispatch, uid]);
 }
@@ -37,8 +36,18 @@ export async function updateProfile(uid: string, data: any) {
   }
 }
 
-export async function createTicket(data: TicketInterface) {
+export async function createTicket(data: any) {
   await addDoc(collection(firebaseConfig.db, "tickets"), data);
+}
+
+export async function updateTicket(uid: string, data: any) {
+  try {
+    const userTicketRef = doc(firebaseConfig.db, "tickets", uid);
+
+    await updateDoc(userTicketRef, data);
+  } catch (error) {
+    return "Something went wrong";
+  }
 }
 
 export function useTicketListener(department: string, uid: string) {
@@ -49,7 +58,7 @@ export function useTicketListener(department: string, uid: string) {
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const ticketArr: any = [];
         querySnapshot.forEach((doc) => {
-          ticketArr.push({ ...doc.data() });
+          ticketArr.push({ ...doc.data(), id: doc?.id });
         });
         dispatch(createTicketAsync(ticketArr));
       });
@@ -57,18 +66,16 @@ export function useTicketListener(department: string, uid: string) {
     } else {
       const q = query(
         collection(firebaseConfig.db, "tickets"),
-        where("created_by.uid", "==", uid)
+        where("employee_uid", "==", uid)
       );
-      console.log("q", q, uid, department);
       const unsubscribe = onSnapshot(q, (querySnapshot) => {
         const ticketArr: any = [];
         querySnapshot.forEach((doc) => {
-          console.log("doc", doc);
-          ticketArr.push({ ...doc.data() });
+          ticketArr.push({ ...doc.data(), id: doc?.id });
         });
         dispatch(createTicketAsync(ticketArr));
       });
       return () => unsubscribe();
     }
-  }, []);
+  }, [department, dispatch, uid]);
 }
