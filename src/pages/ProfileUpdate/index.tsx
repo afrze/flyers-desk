@@ -11,10 +11,14 @@ const ProfileUpdate = () => {
   const [values, setValues] = useState({
     employeeId: "",
     reportingTo: "",
-    department: "Select Department",
+    department: "",
   });
 
   const department = [
+    {
+      label: "selectDepartment",
+      value: "Select Department",
+    },
     {
       label: "frontend",
       value: "Front End",
@@ -69,9 +73,7 @@ const ProfileUpdate = () => {
 
   const changeHandler = (e: any) => {
     setValues({ ...values, [e.target.name]: e.target.value });
-    console.log("object", e.target.name);
   };
-  console.log("values", values);
 
   const updateProfileHandler = async () => {
     try {
@@ -81,7 +83,6 @@ const ProfileUpdate = () => {
         reportingTo: values?.reportingTo,
         department: values?.department,
       });
-      console.log("object", values.department);
     } catch (error) {
       console.error(error);
     }

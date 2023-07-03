@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import firebase from "./config";
 import {
@@ -30,7 +31,6 @@ export const loginWithMicrosoft = async () => {
       acessToken: user?.stsTokenManager?.accessToken,
       refreshToken: user?.stsTokenManager?.refreshToken,
       expirationTime: user?.stsTokenManager?.expirationTime,
-      // ...res?.user,
       profileStatus: "pending",
       employeeId: "",
       reportingTo: "",
@@ -38,7 +38,6 @@ export const loginWithMicrosoft = async () => {
       department: "",
     };
 
-    console.log("object22", userResults);
     if (!userDocSnap.exists()) {
       await setDoc(doc(db, "users", res.user.uid), userResults);
       return userResults;
@@ -53,6 +52,6 @@ export const loginWithMicrosoft = async () => {
 export const logoutProfile = async () => {
   const auth = getAuth();
   signOut(auth).catch((error) => {
-    console.log(error);
+    return error;
   });
 };

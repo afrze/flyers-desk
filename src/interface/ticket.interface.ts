@@ -23,4 +23,5 @@ export interface TicketInterface {
   status: "pending" | "processing" | "completed";
   created_at: Date;
   resolved_at: Date | null;
+  assignee_id: string;
 }

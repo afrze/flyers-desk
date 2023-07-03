@@ -3,7 +3,6 @@ import { UserIcons } from "../../assets/icons";
 import Text from "../Text";
 
 const Card = ({ displayTicket }: any) => {
-  console.log("displayTicket card", displayTicket);
   return (
     <div>
       <div className="flex-center justify-between">
@@ -16,8 +15,8 @@ const Card = ({ displayTicket }: any) => {
           type="h6"
           className="whitespace-nowrap font-montserrat text-[#84818A]"
           children={`Posted at ${new Date(
-            displayTicket?.created_at.seconds
-          ).toLocaleDateString()}`}
+            displayTicket?.created_at?.seconds * 1000
+          )?.toLocaleDateString()}`}
         />
       </div>
       <Text
@@ -36,13 +35,19 @@ const Card = ({ displayTicket }: any) => {
           <Text
             type="h5"
             className="font-montserrat text-[#84818A]"
-            children={displayTicket?.created_by?.name}
+            children={displayTicket?.employee_name}
           />
         </div>
         <div>
-          <Link className="text-[#7F56D8]" to="/open-ticket">
+          <Link
+            className="text-[#7F56D8]"
+            to={`/open-ticket/${displayTicket?.id}`}
+          >
             <Text type="h5" children="Open Ticket" />
           </Link>
+          {/* <Link to={<OpenTicket />}>
+            <Text type="h5" children="Open Ticket" />
+          </Link> */}
         </div>
       </div>
     </div>

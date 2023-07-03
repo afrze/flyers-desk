@@ -5,7 +5,7 @@ type Props = {
   type?: string;
   name?: string;
   value?: string;
-  placeholder: string;
+  placeholder?: string;
   className?: string;
   label?: string;
   labelClassName?: string;
@@ -27,7 +27,7 @@ const Input = ({
   disabled,
 }: Props) => {
   return (
-    <div className="flex flex-col">
+    <div className="w-full flex flex-col">
       <label className={labelClassName}>
         <Text type={fontType} children={label} />
       </label>

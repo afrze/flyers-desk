@@ -18,10 +18,10 @@ export const loginWithMicrosoftAsync: any | void = createAsyncThunk(
     return res;
   }
 );
+
 export const userProfileAsync: any | void = createAsyncThunk(
   "UserSlice/Fetch",
   async (update: any) => {
-    console.log("eeeeeeee", update);
     return update;
   }
 );

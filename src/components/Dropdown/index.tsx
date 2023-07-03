@@ -18,11 +18,11 @@ const Dropdown = ({
         name={name}
         value={value}
         onChange={onChange}
-        className="border py-2 outline-none px-4"
+        className={`${className} border py-2 outline-none px-4`}
       >
-        {options?.map((option: string, index: any) => (
-          <option key={index}>
-            <Text type="h6" children={option} />
+        {options?.map((option: string, i: any) => (
+          <option value={option} key={i}>
+            {option}
           </option>
         ))}
       </select>
