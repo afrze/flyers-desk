@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-// import { SearchIcon } from "../../assets/icons";
+import { SearchIcon } from "../../assets/icons";
 import Card from "../../components/Card";
 import Text from "../../components/Text";
 import CreateTicket from "../../components/CreateTicket";
-// import Input from "../../components/Input";
+import Input from "../../components/Input";
 import { useTicketListener } from "../../services/firebase/database.service";
 
 const ALLTickets = () => {
   const displayTickets = useSelector((state: any) => state.ticket.tickets);
   const { department, uid } = useSelector((state: any) => state?.user?.data);
   const [ticketOpen, setTicketOpen] = useState(false);
-  // const [searchFilter, setSearchFilter] = useState("");
+  const [searchFilter, setSearchFilter] = useState("");
 
   useTicketListener(department, uid);
 
@@ -19,9 +19,9 @@ const ALLTickets = () => {
     setTicketOpen(!ticketOpen);
   };
 
-  // const searchFilterHandler = (e: any) => {
-  //   setSearchFilter(e?.target?.value);
-  // };
+  const searchFilterHandler = (e: any) => {
+    setSearchFilter(e?.target?.value);
+  };
 
   return (
     <div className="py-3 px-5 h-full overflow-scroll bg-[#f5f5f5]">
@@ -58,7 +58,7 @@ const ALLTickets = () => {
       </div>
       <div className="flex gap-3 h-full">
         <div className="border rounded border-[#ffffff] flex flex-col gap-3 py-4 px-6 bg-white flex-grow">
-          {/* <div
+          <div
             className={`w-full md:w-1/2  flex items-center border py-2 px-4 rounded`}
           >
             <SearchIcon className="mr-2" />
@@ -67,15 +67,17 @@ const ALLTickets = () => {
               placeholder="search"
               onChange={searchFilterHandler}
             />
-          </div> */}
+          </div>
           <div className="overflow-scroll">
             {displayTickets
-              // ?.filter((item: any) => {
-              //   return searchFilter.toLowerCase() === ""
-              //     ? item
-              //     : item.created_by.name.toLowerCase().includes(searchFilter) ||
-              //         item?.title.toLowerCase().includes(searchFilter);
-              // })
+              ?.filter((item: any) => {
+                return searchFilter?.toLowerCase() === ""
+                  ? item
+                  : item?.created_by?.name
+                      ?.toLowerCase()
+                      ?.includes(searchFilter) ||
+                      item?.title?.toLowerCase()?.includes(searchFilter);
+              })
               ?.map((displayTicket: any, id: any) => (
                 <div key={id} className="border rounded px-5 py-4 my-3">
                   <Card displayTicket={displayTicket} />
