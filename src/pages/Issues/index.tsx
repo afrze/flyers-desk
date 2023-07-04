@@ -55,6 +55,8 @@ const Issues = () => {
     setTicketOpen(!ticketOpen);
   };
 
+  console.log("coming....");
+
   return (
     <div className="py-3 px-5 h-full overflow-scroll bg-[#f5f5f5]">
       <>
@@ -106,7 +108,7 @@ const Issues = () => {
             </div>
             <div className="overflow-scroll">
               {displayTickets
-                .filter((item: any) => {
+                ?.filter((item: any) => {
                   return searchFilter.toLowerCase() === ""
                     ? item
                     : item?.title.toLowerCase().includes(searchFilter) ||
@@ -117,7 +119,7 @@ const Issues = () => {
                           .toLowerCase()
                           .includes(searchFilter);
                 })
-                .map((displayTicket: any, id: string) => (
+                ?.map((displayTicket: any, id: string) => (
                   <div key={id} className="border rounded px-5 py-4 my-3">
                     <Card displayTicket={displayTicket} />
                   </div>

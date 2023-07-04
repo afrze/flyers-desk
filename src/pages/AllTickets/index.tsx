@@ -76,7 +76,7 @@ const ALLTickets = () => {
                   : item.created_by.name.toLowerCase().includes(searchFilter) ||
                       item?.title.toLowerCase().includes(searchFilter);
               })
-              .map((displayTicket: any, id: any) => (
+              ?.map((displayTicket: any, id: any) => (
                 <div key={id} className="border rounded px-5 py-4 my-3">
                   <Card displayTicket={displayTicket} />
                 </div>
