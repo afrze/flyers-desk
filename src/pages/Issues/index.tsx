@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import { MessageIcon, SearchIcon } from "../../assets/icons";
+import { MessageIcon } from "../../assets/icons";
 import Button from "../../components/Button";
 import Card from "../../components/Card";
 import Text from "../../components/Text";
@@ -10,7 +10,7 @@ import {
   createTicket,
   useTicketListener,
 } from "../../services/firebase/database.service";
-import Input from "../../components/Input";
+// import Input from "../../components/Input";
 
 const Issues = () => {
   const displayTickets = useSelector((state: any) => state?.ticket?.tickets);
@@ -18,7 +18,7 @@ const Issues = () => {
     (state: any) => state.user.data
   );
   const [ticketOpen, setTicketOpen] = useState(false);
-  const [searchFilter, setSearchFilter] = useState("");
+  // const [searchFilter, setSearchFilter] = useState("");
   const [values, setValues] = useState<any | null>({
     description: "",
     priority: "high",
