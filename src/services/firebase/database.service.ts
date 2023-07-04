@@ -53,29 +53,31 @@ export async function updateTicket(uid: string, data: any) {
 export function useTicketListener(department: string, uid: string) {
   const dispatch = useDispatch();
   useEffect(() => {
-    if (department === "Infra") {
-      const q = query(collection(firebaseConfig.db, "tickets"));
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        const ticketArr: any = [];
-        querySnapshot.forEach((doc) => {
-          ticketArr.push({ ...doc.data(), id: doc?.id });
+    if (uid) {
+      if (department === "Infra") {
+        const q = query(collection(firebaseConfig.db, "tickets"));
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+          const ticketArr: any = [];
+          querySnapshot.forEach((doc) => {
+            ticketArr.push({ ...doc.data(), id: doc?.id });
+          });
+          dispatch(createTicketAsync(ticketArr));
         });
-        dispatch(createTicketAsync(ticketArr));
-      });
-      return () => unsubscribe();
-    } else {
-      const q = query(
-        collection(firebaseConfig.db, "tickets"),
-        where("employee_uid", "==", uid)
-      );
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        const ticketArr: any = [];
-        querySnapshot.forEach((doc) => {
-          ticketArr.push({ ...doc.data(), id: doc?.id });
+        return () => unsubscribe();
+      } else {
+        const q = query(
+          collection(firebaseConfig.db, "tickets"),
+          where("employee_uid", "==", uid)
+        );
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+          const ticketArr: any = [];
+          querySnapshot.forEach((doc) => {
+            ticketArr.push({ ...doc.data(), id: doc?.id });
+          });
+          dispatch(createTicketAsync(ticketArr));
         });
-        dispatch(createTicketAsync(ticketArr));
-      });
-      return () => unsubscribe();
+        return () => unsubscribe();
+      }
     }
   }, [department, dispatch, uid]);
 }
