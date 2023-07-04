@@ -5,15 +5,12 @@ import Card from "../../components/Card";
 import Text from "../../components/Text";
 import CreateTicket from "../../components/CreateTicket";
 import Input from "../../components/Input";
-import { useTicketListener } from "../../services/firebase/database.service";
 
 const ALLTickets = () => {
   const displayTickets = useSelector((state: any) => state.ticket.tickets);
-  const { department, uid } = useSelector((state: any) => state?.user?.data);
+  // const { department, uid } = useSelector((state: any) => state?.user?.data);
   const [ticketOpen, setTicketOpen] = useState(false);
   const [searchFilter, setSearchFilter] = useState("");
-
-  useTicketListener(department, uid);
 
   const toggleState = () => {
     setTicketOpen(!ticketOpen);
