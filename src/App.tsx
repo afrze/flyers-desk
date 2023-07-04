@@ -5,35 +5,50 @@ import NotFound from "./pages/NotFound";
 import ProfileUpdate from "./pages/ProfileUpdate";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { useSelector } from "react-redux";
-import { userProfileListener } from "./services/firebase/database.service";
+import { useProfileListener } from "./services/firebase/database.service";
+import PurchaseRequest from "./pages/PurchaseRequest";
+import IssuesTickets from "./pages/Issues";
+import OpenTicket from "./pages/OpenTicket";
+import routes from "./routes/routes";
+import AllTickets from "./pages/AllTickets";
 
 const App = () => {
-  const activeUser = useSelector((state: any) => state.data);
-  userProfileListener(activeUser?.uid);
+  const activeUser = useSelector((state: any) => state.user.data);
+  useProfileListener(activeUser?.uid);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <DashBoard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/profile-update"
-          element={
-            <ProtectedRoute>
-              <ProfileUpdate />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/login" element={<Login />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <DashBoard />
+              </ProtectedRoute>
+            }
+          >
+            <Route
+              path={routes.purchase_request}
+              element={<PurchaseRequest />}
+            />
+            <Route path={routes.issues} element={<IssuesTickets />} />
+            <Route path={routes.open_ticket} element={<OpenTicket />} />
+            <Route path={routes.all_tickets} element={<AllTickets />} />
+          </Route>
+          <Route
+            path={routes.profile_update}
+            element={
+              <ProtectedRoute>
+                <ProfileUpdate />
+              </ProtectedRoute>
+            }
+          />
+          <Route path={routes.login} element={<Login />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 };
 

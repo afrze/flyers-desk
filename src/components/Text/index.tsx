@@ -8,9 +8,11 @@ type Props = {
 
 const Text = ({ type, children, className }: Props) => {
   const textClass = classNames(
-    { "text-lg": type === "h1" },
-    { "text-base": type === "h2" },
-    { "text-xl": type === "h3" },
+    { "text-xl": type === "h2" },
+    { "text-lg": type === "h3" },
+    { "text-base": type === "h4" },
+    { "text-sm": type === "h5" },
+    { "text-xs": type === "h6" },
     className
   );
   if (type === "h1") {
@@ -35,7 +37,7 @@ const Text = ({ type, children, className }: Props) => {
     );
   }
 
-  return <p className={textClass}>{children}</p>;
+  return <p className={`${textClass}`}>{children}</p>;
 };
 
 export default Text;
