@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { SearchIcon } from "../../assets/icons";
+// import { SearchIcon } from "../../assets/icons";
 import Card from "../../components/Card";
 import Text from "../../components/Text";
 import CreateTicket from "../../components/CreateTicket";
-import Input from "../../components/Input";
+// import Input from "../../components/Input";
 import { useTicketListener } from "../../services/firebase/database.service";
 
 const ALLTickets = () => {
   const displayTickets = useSelector((state: any) => state.ticket.tickets);
   const { department, uid } = useSelector((state: any) => state?.user?.data);
   const [ticketOpen, setTicketOpen] = useState(false);
-  const [searchFilter, setSearchFilter] = useState("");
+  // const [searchFilter, setSearchFilter] = useState("");
 
   useTicketListener(department, uid);
 
@@ -19,9 +19,9 @@ const ALLTickets = () => {
     setTicketOpen(!ticketOpen);
   };
 
-  const searchFilterHandler = (e: any) => {
-    setSearchFilter(e?.target?.value);
-  };
+  // const searchFilterHandler = (e: any) => {
+  //   setSearchFilter(e?.target?.value);
+  // };
 
   return (
     <div className="py-3 px-5 h-full overflow-scroll bg-[#f5f5f5]">
