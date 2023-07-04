@@ -6,10 +6,7 @@ import Card from "../../components/Card";
 import Text from "../../components/Text";
 import CreateTicket from "../../components/CreateTicket";
 import { useSelector } from "react-redux";
-import {
-  createTicket,
-  useTicketListener,
-} from "../../services/firebase/database.service";
+import { createTicket } from "../../services/firebase/database.service";
 import Input from "../../components/Input";
 
 const Issues = () => {
@@ -25,7 +22,6 @@ const Issues = () => {
     requestType: "",
     title: "",
   });
-  useTicketListener(department, uid);
 
   const changeHandler = (event: any) => {
     setValues({ ...values, [event.target.name]: event.target.value });

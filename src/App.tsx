@@ -5,7 +5,10 @@ import NotFound from "./pages/NotFound";
 import ProfileUpdate from "./pages/ProfileUpdate";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { useSelector } from "react-redux";
-import { useProfileListener } from "./services/firebase/database.service";
+import {
+  useProfileListener,
+  useTicketListener,
+} from "./services/firebase/database.service";
 import PurchaseRequest from "./pages/PurchaseRequest";
 import IssuesTickets from "./pages/Issues";
 import OpenTicket from "./pages/OpenTicket";
@@ -15,7 +18,7 @@ import AllTickets from "./pages/AllTickets";
 const App = () => {
   const activeUser = useSelector((state: any) => state.user.data);
   useProfileListener(activeUser?.uid);
-
+  useTicketListener(activeUser?.department, activeUser?.uid);
   return (
     <>
       <BrowserRouter>
