@@ -43,7 +43,6 @@ export async function createTicket(data: any) {
 export async function updateTicket(uid: string, data: any) {
   try {
     const userTicketRef = doc(firebaseConfig.db, "tickets", uid);
-
     await updateDoc(userTicketRef, data);
   } catch (error) {
     return "Something went wrong";

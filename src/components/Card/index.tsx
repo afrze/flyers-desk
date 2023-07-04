@@ -24,11 +24,18 @@ const Card = ({ displayTicket }: any) => {
         className="capitalize text-[#2E2C34] font-montserrat pt-2"
         children={displayTicket?.title}
       />
-      <Text
-        type="h6"
-        className="font-montserrat text-[#84818A] py-4"
-        children={displayTicket?.description}
-      />
+      <div className="flex justify-between">
+        <Text
+          type="h6"
+          className="font-montserrat text-[#84818A] py-4"
+          children={displayTicket?.description}
+        />
+        <Text
+          type="h6"
+          className="font-montserrat text-[#84818A] py-4"
+          children={displayTicket?.assignee_id}
+        />
+      </div>
       <div className="flex-center justify-between border-t pt-3">
         <div className="flex-center">
           <UserIcons className="mr-2 w-[28px] h-[28px]" />

@@ -21,14 +21,14 @@ export const createTicketAsync: any | void = createAsyncThunk(
  */
 export const updateTicketAsync: any | void = createAsyncThunk(
   "ticketSlice/update-ticket",
-  async (id: string, updateData) => {
+  async (data: any) => {
     try {
-      await updateTicket(id, updateData);
+      await updateTicket(data?.id, data?.updateData);
       return;
     } catch (error) {
       console.error(error);
     }
-    return updateData;
+    return;
   }
 );
 
@@ -37,15 +37,10 @@ const ticketSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder
-      .addCase(createTicketAsync.fulfilled, (state, { payload }) => {
-        state.loading = false;
-        state.tickets = payload;
-      })
-      .addCase(updateTicketAsync?.fulfilled, (state, { payload }) => {
-        state.loading = false;
-        state.tickets = payload;
-      });
+    builder.addCase(createTicketAsync.fulfilled, (state, { payload }) => {
+      state.loading = false;
+      state.tickets = payload;
+    });
   },
 });
 
