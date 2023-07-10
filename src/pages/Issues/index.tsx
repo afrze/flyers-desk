@@ -22,9 +22,12 @@ const Issues = () => {
     requestType: "",
     title: "",
   });
-
   const changeHandler = (event: any) => {
     setValues({ ...values, [event.target.name]: event.target.value });
+  };
+
+  const toggleState = () => {
+    setTicketOpen(!ticketOpen);
   };
 
   const CreateTicketHandler = () => {
@@ -47,82 +50,122 @@ const Issues = () => {
     toggleState();
   };
 
-  const toggleState = () => {
-    setTicketOpen(!ticketOpen);
-  };
-
-  console.log("coming....");
-
   return (
     <div className="py-3 px-5 h-full overflow-scroll bg-[#f5f5f5]">
       <>
-        <div className="flex-center justify-between py-3">
-          <Text type="h2" children="Tickets" />
-          <div
-            className="flex-center bg-[#7F56D8] rounded py-1 px-4"
-            onClick={toggleState}
-          >
-            <MessageIcon />
-            <Button className="border-none text-white">
-              <Text type="h4" children="New Ticket" />
-            </Button>
-          </div>
-        </div>
-        <div
-          className={
-            ticketOpen
-              ? "new-ticket-outer w-full flex justify-center items-center"
-              : ""
-          }
-        >
-          {ticketOpen && (
+        {displayTickets?.length === 0 ? (
+          <>
+            <div className="flex-center justify-between py-3">
+              <Text type="h2" children="Tickets" />
+              <div
+                className="flex-center bg-[#7F56D8] rounded py-1 px-4"
+                onClick={toggleState}
+              >
+                <MessageIcon />
+                <Button className="border-none text-white">
+                  <Text type="h4" children="New Ticket" />
+                </Button>
+              </div>
+            </div>
             <div
               className={
                 ticketOpen
-                  ? "new-ticket-container w-[calc(100%-20px)] md:w-1/2"
+                  ? "new-ticket-outer w-full flex justify-center items-center"
                   : ""
               }
             >
-              <CreateTicket
-                changeHandler={changeHandler}
-                toggleState={toggleState}
-                values={values}
-                CreateTicketHandler={CreateTicketHandler}
-              />
+              {ticketOpen && (
+                <div
+                  className={
+                    ticketOpen
+                      ? "new-ticket-container w-[calc(100%-20px)] md:w-1/2"
+                      : ""
+                  }
+                >
+                  <CreateTicket
+                    changeHandler={changeHandler}
+                    toggleState={toggleState}
+                    values={values}
+                    CreateTicketHandler={CreateTicketHandler}
+                  />
+                </div>
+              )}
             </div>
-          )}
-        </div>
-        <div className="flex gap-3 h-full">
-          <div className="border rounded border-[#ffffff] flex flex-col gap-3 py-4 px-6 bg-white flex-grow">
-            <div className="w-full md:w-1/2 flex items-center border py-2 px-4 rounded">
-              <SearchIcon className="mr-2" />
-              <Input
-                className="w-full outline-none"
-                placeholder="search"
-                onChange={(e) => setSearchFilter(e.target.value)}
-              />
+            <div className="w-full h-screen">
+              <Text type="h3" children="No tickets Created yet" />
             </div>
-            <div className="overflow-scroll">
-              {displayTickets
-                ?.filter((item: any) => {
-                  return searchFilter?.toLowerCase() === ""
-                    ? item
-                    : item?.title?.toLowerCase()?.includes(searchFilter) ||
-                        item?.description
-                          ?.toLowerCase()
-                          ?.includes(searchFilter) ||
-                        item?.created_by?.name
-                          ?.toLowerCase()
-                          ?.includes(searchFilter);
-                })
-                ?.map((displayTicket: any, id: string) => (
-                  <div key={id} className="border rounded px-5 py-4 my-3">
-                    <Card displayTicket={displayTicket} />
-                  </div>
-                ))}
+          </>
+        ) : (
+          <>
+            <div className="flex-center justify-between py-3">
+              <Text type="h2" children="Tickets" />
+              <div
+                className="flex-center bg-[#7F56D8] rounded py-1 px-4"
+                onClick={toggleState}
+              >
+                <MessageIcon />
+                <Button className="border-none text-white">
+                  <Text type="h4" children="New Ticket" />
+                </Button>
+              </div>
             </div>
-          </div>
-        </div>
+            <div
+              className={
+                ticketOpen
+                  ? "new-ticket-outer w-full flex justify-center items-center"
+                  : ""
+              }
+            >
+              {ticketOpen && (
+                <div
+                  className={
+                    ticketOpen
+                      ? "new-ticket-container w-[calc(100%-20px)] md:w-1/2"
+                      : ""
+                  }
+                >
+                  <CreateTicket
+                    changeHandler={changeHandler}
+                    toggleState={toggleState}
+                    values={values}
+                    CreateTicketHandler={CreateTicketHandler}
+                  />
+                </div>
+              )}
+            </div>
+            <div className="flex gap-3 h-full">
+              <div className="border rounded border-[#ffffff] flex flex-col gap-3 py-4 px-6 bg-white flex-grow">
+                <div className="w-full md:w-1/2 flex items-center border py-2 px-4 rounded">
+                  <SearchIcon className="mr-2" />
+                  <Input
+                    className="w-full outline-none"
+                    placeholder="search"
+                    onChange={(e) => setSearchFilter(e.target.value)}
+                  />
+                </div>
+                <div className="overflow-scroll">
+                  {displayTickets
+                    ?.filter((item: any) => {
+                      return searchFilter?.toLowerCase() === ""
+                        ? item
+                        : item?.title?.toLowerCase()?.includes(searchFilter) ||
+                            item?.description
+                              ?.toLowerCase()
+                              ?.includes(searchFilter) ||
+                            item?.created_by?.name
+                              ?.toLowerCase()
+                              ?.includes(searchFilter);
+                    })
+                    ?.map((displayTicket: any, id: string) => (
+                      <div key={id} className="border rounded px-5 py-4 my-3">
+                        <Card displayTicket={displayTicket} />
+                      </div>
+                    ))}
+                </div>
+              </div>
+            </div>
+          </>
+        )}
       </>
     </div>
   );

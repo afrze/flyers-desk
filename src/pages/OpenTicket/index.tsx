@@ -256,11 +256,18 @@ const OpenTicket = () => {
                 <label className="w-1/2 md:w-[35%] whitespace-nowrap">
                   Assigned To:
                 </label>
-                <Text
-                  className="capitalize w-[90%] border p-2 rounded"
-                  type="h5"
-                  children={TicketUser?.assignee_id}
-                />
+                {TicketUser?.assignee_id ? (
+                  <Text
+                    className="capitalize w-[90%] border p-2 rounded"
+                    type="h5"
+                    children={TicketUser?.assignee_id}
+                  />
+                ) : (
+                  <Text
+                    className="capitalize w-[90%] border p-2 rounded"
+                    children="--NA--"
+                  />
+                )}
               </div>
               <div className="flex-center w-full gap-3 md:w-1/2 py-2">
                 <label className="capitalize w-1/2 md:w-[35%] whitespace-nowrap">
