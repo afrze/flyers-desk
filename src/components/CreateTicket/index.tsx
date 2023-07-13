@@ -11,7 +11,7 @@ const CreateTicket = ({
   CreateTicketHandler,
 }: any) => {
   return (
-    <div>
+    <form className="p-6">
       <div className="flex justify-between">
         <div>
           <Text
@@ -29,20 +29,9 @@ const CreateTicket = ({
           <FaTimes />
         </Button>
       </div>
-      {/* <div className="pt-3">
+      <div className="py-3">
         <Input
-          className="border py-2 px-3 rounded text-[#757575] outline-none"
-          type="text"
-          labelClassName="pb-2"
-          label="Assign To"
-          fontType="h5"
-          placeholder="FEC0048"
-          disabled
-        />
-      </div> */}
-      <div className="pt-3">
-        <Input
-          className="border py-2 px-3 rounded text-[#757575] outline-none"
+          className="border py-4 px-3 rounded text-[#757575] outline-none"
           type="text"
           labelClassName="pb-2"
           label="Title"
@@ -51,23 +40,28 @@ const CreateTicket = ({
           onChange={changeHandler}
           value={values?.title}
           name="title"
+          // required
         />
       </div>
-      <div className="pt-3 flex flex-col">
+      <div className="py-3 flex flex-col">
         <Dropdown
           className="py-2"
-          label="Request Ticket Type"
+          label="Choose Type"
           fontType="h5"
-          options={["purchase", "issue"]}
-          name="requestType"
+          options={[
+            { value: "purchase", text: "Purchase Request" },
+            { value: "issue", text: "Issue Request" },
+          ]}
           value={values?.requestType}
-          onChange={changeHandler}
+          onChange={(value: string) => {
+            changeHandler({ target: { name: "requestType", value } });
+          }}
         />
       </div>
 
       <div className="flex flex-col py-3 ">
         <Input
-          className="capitalize border py-2 px-3 rounded text-[#757575] outline-none"
+          className="capitalize border py-4 px-3 rounded text-[#757575] outline-none"
           type="text"
           labelClassName="pb-2 capitalize"
           label="Description"
@@ -76,15 +70,19 @@ const CreateTicket = ({
           value={values.description}
           name="description"
           onChange={changeHandler}
+          // required
         />
       </div>
-      <Button
-        onClick={CreateTicketHandler}
-        className="w-full border rounded flex items-center justify-center p-2  bg-[#AE8EF1]"
-      >
-        <Text className="text-[#FFFFFF]" type="h4" children="Submit" />
-      </Button>
-    </div>
+      <div className="py-3">
+        <Button
+          type="submit"
+          onClick={CreateTicketHandler}
+          className="w-full border rounded flex items-center justify-center p-2  bg-[#7F56D8]"
+        >
+          <Text className="text-[#FFFFFF]" type="h4" children="Submit" />
+        </Button>
+      </div>
+    </form>
   );
 };
 

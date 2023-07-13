@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { MessageIcon, SearchIcon } from "../../assets/icons";
 import Button from "../../components/Button";
 import Card from "../../components/Card";
 import Text from "../../components/Text";
 import CreateTicket from "../../components/CreateTicket";
-import { useSelector } from "react-redux";
 import { createTicket } from "../../services/firebase/database.service";
 import Input from "../../components/Input";
 
@@ -22,15 +22,24 @@ const Issues = () => {
     requestType: "",
     title: "",
   });
+
   const changeHandler = (event: any) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
   const toggleState = () => {
     setTicketOpen(!ticketOpen);
+    setValues("");
   };
 
-  const CreateTicketHandler = () => {
+  const CreateTicketHandler = (e: any) => {
+    e.preventDefault();
+    if (values?.title === "") {
+      alert("please fill all the fields");
+      return;
+    } else if (values?.description === "") {
+      alert("please fill desc the field");
+    }
     createTicket({
       employee_name: displayName,
       employee_id: employeeId,
@@ -41,11 +50,13 @@ const Issues = () => {
       description: values?.description,
       type: values?.requestType,
       assignee_id: "",
-      status: "pending",
+      status: "New Ticket",
       created_at: new Date(),
       resolved_at: null,
-      attachments: ["manoj"],
+      attachments: ["0"],
+      // ticket_id: selected,
     });
+
     setValues("");
     toggleState();
   };
@@ -87,11 +98,12 @@ const Issues = () => {
                     toggleState={toggleState}
                     values={values}
                     CreateTicketHandler={CreateTicketHandler}
+                    setValues={setValues}
                   />
                 </div>
               )}
             </div>
-            <div className="w-full h-screen">
+            <div className="w-full h-[80vh] flex-center justify-center">
               <Text type="h3" children="No tickets Created yet" />
             </div>
           </>
