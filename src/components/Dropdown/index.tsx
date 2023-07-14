@@ -1,6 +1,13 @@
 import { useRef, useState } from "react";
 import { ChevronDown } from "../../assets/icons";
 
+// type DropdownProps = {
+//   options: string;
+//   onChange: () => void;
+//   value: string;
+//   label: string;
+// };
+
 const Dropdown = ({ options, onChange, value, label }: any) => {
   const [isActive, setIsActive] = useState(false);
   const menuRef = useRef<null | HTMLDivElement>(null);
@@ -17,14 +24,14 @@ const Dropdown = ({ options, onChange, value, label }: any) => {
   });
 
   return (
-    <div className="relative w-full">
+    <div className=" relative w-full ">
       <div
         ref={menuRef}
         className="flex justify-between items-center py-4 px-6 border rounded shadow cursor-pointer"
         onClick={() => setIsActive(!isActive)}
       >
         <p className="capitalize"> {value || label} </p>
-        <span className={isActive ? "rotate-180 transition" : ""}>
+        <span className={isActive ? " rotate-180 transition" : ""}>
           <ChevronDown />
         </span>
       </div>

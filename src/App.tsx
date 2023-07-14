@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
 import DashBoard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import ProfileUpdate from "./pages/ProfileUpdate";
 import ProtectedRoute from "./routes/ProtectedRoute";
-import { useSelector } from "react-redux";
 import {
   useProfileListener,
   useTicketListener,

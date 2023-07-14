@@ -5,10 +5,10 @@ import Text from "../Text";
 import { FaTimes } from "react-icons/fa";
 
 const CreateTicket = ({
-  toggleState,
+  createTicketModalHandler,
   changeHandler,
   values,
-  CreateTicketHandler,
+  createTicketHandler,
 }: any) => {
   return (
     <form className="p-6">
@@ -25,7 +25,7 @@ const CreateTicket = ({
             children="Write and address new queries and issues"
           />
         </div>
-        <Button onClick={toggleState}>
+        <Button onClick={createTicketModalHandler}>
           <FaTimes />
         </Button>
       </div>
@@ -38,7 +38,7 @@ const CreateTicket = ({
           fontType="h5"
           placeholder="Title"
           onChange={changeHandler}
-          value={values?.title}
+          value={values?.title || ""}
           name="title"
           // required
         />
@@ -67,7 +67,7 @@ const CreateTicket = ({
           label="Description"
           fontType="h5"
           placeholder="Description"
-          value={values.description}
+          value={values.description || ""}
           name="description"
           onChange={changeHandler}
           // required
@@ -76,7 +76,7 @@ const CreateTicket = ({
       <div className="py-3">
         <Button
           type="submit"
-          onClick={CreateTicketHandler}
+          onClick={createTicketHandler}
           className="w-full border rounded flex items-center justify-center p-2  bg-[#7F56D8]"
         >
           <Text className="text-[#FFFFFF]" type="h4" children="Submit" />

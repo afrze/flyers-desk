@@ -10,11 +10,11 @@ import { createTicket } from "../../services/firebase/database.service";
 import Input from "../../components/Input";
 
 const Issues = () => {
-  const displayTickets = useSelector((state: any) => state?.ticket?.tickets);
+  const tickets = useSelector((state: any) => state?.ticket?.tickets);
   const { department, uid, displayName, employeeId, reportingTo } = useSelector(
     (state: any) => state.user.data
   );
-  const [ticketOpen, setTicketOpen] = useState(false);
+  const [showCreateTicketModal, setShowCreateTicketModal] = useState(false);
   const [searchFilter, setSearchFilter] = useState("");
   const [values, setValues] = useState<any | null>({
     description: "",
@@ -27,12 +27,12 @@ const Issues = () => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
-  const toggleState = () => {
-    setTicketOpen(!ticketOpen);
+  const createTicketModalHandler = () => {
+    setShowCreateTicketModal(!showCreateTicketModal);
     setValues("");
   };
 
-  const CreateTicketHandler = (e: any) => {
+  const createTicketHandler = (e: any) => {
     e.preventDefault();
     if (values?.title === "") {
       alert("please fill all the fields");
@@ -56,21 +56,21 @@ const Issues = () => {
       attachments: ["0"],
       // ticket_id: selected,
     });
-
     setValues("");
-    toggleState();
+    createTicketModalHandler();
   };
+  console.log("object", values?.title === "");
 
   return (
     <div className="py-3 px-5 h-full overflow-scroll bg-[#f5f5f5]">
       <>
-        {displayTickets?.length === 0 ? (
+        {tickets?.length === 0 ? (
           <>
             <div className="flex-center justify-between py-3">
               <Text type="h2" children="Tickets" />
               <div
                 className="flex-center bg-[#7F56D8] rounded py-1 px-4"
-                onClick={toggleState}
+                onClick={createTicketModalHandler}
               >
                 <MessageIcon />
                 <Button className="border-none text-white">
@@ -80,24 +80,24 @@ const Issues = () => {
             </div>
             <div
               className={
-                ticketOpen
+                showCreateTicketModal
                   ? "new-ticket-outer w-full flex justify-center items-center"
                   : ""
               }
             >
-              {ticketOpen && (
+              {showCreateTicketModal && (
                 <div
                   className={
-                    ticketOpen
+                    showCreateTicketModal
                       ? "new-ticket-container w-[calc(100%-20px)] md:w-1/2"
                       : ""
                   }
                 >
                   <CreateTicket
                     changeHandler={changeHandler}
-                    toggleState={toggleState}
+                    createTicketModalHandler={createTicketModalHandler}
                     values={values}
-                    CreateTicketHandler={CreateTicketHandler}
+                    createTicketHandler={createTicketHandler}
                     setValues={setValues}
                   />
                 </div>
@@ -113,7 +113,7 @@ const Issues = () => {
               <Text type="h2" children="Tickets" />
               <div
                 className="flex-center bg-[#7F56D8] rounded py-1 px-4"
-                onClick={toggleState}
+                onClick={createTicketModalHandler}
               >
                 <MessageIcon />
                 <Button className="border-none text-white">
@@ -123,24 +123,24 @@ const Issues = () => {
             </div>
             <div
               className={
-                ticketOpen
+                showCreateTicketModal
                   ? "new-ticket-outer w-full flex justify-center items-center"
                   : ""
               }
             >
-              {ticketOpen && (
+              {showCreateTicketModal && (
                 <div
                   className={
-                    ticketOpen
+                    showCreateTicketModal
                       ? "new-ticket-container w-[calc(100%-20px)] md:w-1/2"
                       : ""
                   }
                 >
                   <CreateTicket
                     changeHandler={changeHandler}
-                    toggleState={toggleState}
+                    createTicketModalHandler={createTicketModalHandler}
                     values={values}
-                    CreateTicketHandler={CreateTicketHandler}
+                    createTicketHandler={createTicketHandler}
                   />
                 </div>
               )}
@@ -156,21 +156,23 @@ const Issues = () => {
                   />
                 </div>
                 <div className="overflow-scroll">
-                  {displayTickets
-                    ?.filter((item: any) => {
+                  {tickets
+                    ?.filter((ticket: any) => {
                       return searchFilter?.toLowerCase() === ""
-                        ? item
-                        : item?.title?.toLowerCase()?.includes(searchFilter) ||
-                            item?.description
+                        ? ticket
+                        : ticket?.title
+                            ?.toLowerCase()
+                            ?.includes(searchFilter) ||
+                            ticket?.description
                               ?.toLowerCase()
                               ?.includes(searchFilter) ||
-                            item?.created_by?.name
+                            ticket?.created_by?.name
                               ?.toLowerCase()
                               ?.includes(searchFilter);
                     })
-                    ?.map((displayTicket: any, id: string) => (
+                    ?.map((ticket: any, id: string) => (
                       <div key={id} className="border rounded px-5 py-4 my-3">
-                        <Card displayTicket={displayTicket} />
+                        <Card ticket={ticket} />
                       </div>
                     ))}
                 </div>
