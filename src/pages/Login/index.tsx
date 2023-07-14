@@ -20,7 +20,7 @@ const Login = () => {
     if (activeUser?.profileStatus === "pending") {
       navigate(routes.profile_update);
     } else if (activeUser?.profileStatus === "completed") {
-      navigate("/");
+      navigate("/issues");
     }
   }, [activeUser?.profileStatus, navigate]);
 
