@@ -1,18 +1,19 @@
 import { useRef, useState } from "react";
 import { ChevronDown } from "../../assets/icons";
 
-// type DropdownProps = {
-//   options: string;
-//   onChange: () => void;
-//   value: string;
-//   label: string;
-// };
+type DropdownProps = {
+  options?: { value: string; text: string }[];
+  onChange: (val: string) => void;
+  value?: string;
+  label?: string;
+  className?: string;
+};
 
-const Dropdown = ({ options, onChange, value, label }: any) => {
+const Dropdown = ({ options, onChange, value, label }: DropdownProps) => {
   const [isActive, setIsActive] = useState(false);
   const menuRef = useRef<null | HTMLDivElement>(null);
 
-  const dropdownHandler = (val: any) => {
+  const dropdownHandler = (val: string) => {
     onChange(val);
     setIsActive(false);
   };

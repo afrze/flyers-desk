@@ -10,9 +10,11 @@ import { createTicket } from "../../services/firebase/database.service";
 import Input from "../../components/Input";
 
 const Issues = () => {
-  const tickets = useSelector((state: any) => state?.ticket?.tickets);
   const { department, uid, displayName, employeeId, reportingTo } = useSelector(
     (state: any) => state.user.data
+  );
+  const tickets = useSelector((state: any) =>
+    state?.ticket?.tickets?.filter((ticket: any) => ticket.employee_uid === uid)
   );
   const [showCreateTicketModal, setShowCreateTicketModal] = useState(false);
   const [searchFilter, setSearchFilter] = useState("");

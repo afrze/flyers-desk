@@ -6,7 +6,7 @@ import Text from "../../components/Text";
 import Input from "../../components/Input";
 
 const ALLTickets = () => {
-  const displayTickets = useSelector((state: any) => state.ticket.tickets);
+  const tickets = useSelector((state: any) => state.ticket.tickets);
   const [searchFilter, setSearchFilter] = useState("");
 
   const searchFilterHandler = (e: any) => {
@@ -31,7 +31,7 @@ const ALLTickets = () => {
             />
           </div>
           <div className="overflow-scroll">
-            {displayTickets
+            {tickets
               ?.filter((item: any) => {
                 return searchFilter?.toLowerCase() === ""
                   ? item
@@ -40,9 +40,9 @@ const ALLTickets = () => {
                       ?.includes(searchFilter) ||
                       item?.title?.toLowerCase()?.includes(searchFilter);
               })
-              ?.map((displayTicket: any, id: any) => (
+              ?.map((ticket: any, id: any) => (
                 <div key={id} className="border rounded px-5 py-4 my-3">
-                  <Card displayTicket={displayTicket} />
+                  <Card ticket={ticket} />
                 </div>
               ))}
           </div>

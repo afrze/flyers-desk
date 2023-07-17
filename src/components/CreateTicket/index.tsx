@@ -47,7 +47,6 @@ const CreateTicket = ({
         <Dropdown
           className="py-2"
           label="Choose Type"
-          fontType="h5"
           options={[
             { value: "purchase", text: "Purchase Request" },
             { value: "issue", text: "Issue Request" },
