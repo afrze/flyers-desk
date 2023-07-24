@@ -1,32 +1,57 @@
-import Text from "../Text";
+import { useRef, useState } from "react";
+import { ChevronDown } from "../../assets/icons";
 
-const Dropdown = ({
-  label,
-  className,
-  fontType,
-  options,
-  name,
-  value,
-  onChange,
-}: any) => {
+type DropdownProps = {
+  options?: { value: string; text: string }[];
+  onChange: (val: string) => void;
+  value?: string;
+  label?: string;
+  className?: string;
+};
+
+const Dropdown = ({ options, onChange, value, label }: DropdownProps) => {
+  const [isActive, setIsActive] = useState(false);
+  const menuRef = useRef<null | HTMLDivElement>(null);
+
+  const dropdownHandler = (val: string) => {
+    onChange(val);
+    setIsActive(false);
+  };
+
+  window.addEventListener("click", (e) => {
+    if (e.target !== menuRef.current) {
+      setIsActive(false);
+    }
+  });
+
   return (
-    <>
-      <label className="py-2">
-        <Text className="py-2" type={fontType} children={label} />
-      </label>
-      <select
-        name={name}
-        value={value}
-        onChange={onChange}
-        className={`${className} border py-2 outline-none px-4`}
+    <div className=" relative w-full ">
+      <div
+        ref={menuRef}
+        className="flex justify-between items-center py-4 px-6 border rounded shadow cursor-pointer"
+        onClick={() => setIsActive(!isActive)}
       >
-        {options?.map((option: string, i: any) => (
-          <option value={option} key={i}>
-            {option}
-          </option>
-        ))}
-      </select>
-    </>
+        <p className="capitalize"> {value || label} </p>
+        <span className={isActive ? " rotate-180 transition" : ""}>
+          <ChevronDown />
+        </span>
+      </div>
+      {isActive && (
+        <div className="absolute h-[14vh] overflow-scroll w-full bg-white py-4 px-3 rounded shadow my-1 hover:w-full">
+          {options?.map((option: { value: string; text: string }) => (
+            <div
+              onClick={() => {
+                dropdownHandler(option.value);
+              }}
+              className="capitalize p-4  cursor-pointer transition-all  hover:bg-[#f4f4f4] rounded-r-xl "
+              key={option.value}
+            >
+              {option.text}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 

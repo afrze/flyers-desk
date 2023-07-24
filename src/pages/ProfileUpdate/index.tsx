@@ -14,62 +14,52 @@ const ProfileUpdate = () => {
     department: "",
   });
 
-  const department = [
+  const departmentArray = [
     {
-      label: "selectDepartment",
-      value: "Select Department",
-    },
-    {
-      label: "frontend",
+      text: "frontend",
       value: "Front End",
     },
     {
-      label: "backend",
+      text: "backend",
       value: "Back End",
     },
     {
-      label: "ui-ux",
+      text: "ui-ux",
       value: "UI / UX",
     },
     {
-      label: "qa",
+      text: "Quality Assurance",
       value: "Quality Assurance",
     },
     {
-      label: "gaming",
+      text: "game development",
       value: "Game Development",
     },
     {
-      label: "mobile",
+      text: "mobile",
       value: "Mobile Development",
     },
     {
-      label: "sales",
+      text: "sales",
       value: "Sales",
     },
     {
-      label: "finance",
+      text: "finance",
       value: "Finance",
     },
     {
-      label: "infra",
+      text: "infra",
       value: "Infra",
     },
     {
-      label: "operations",
+      text: "operations",
       value: "Operations",
     },
     {
-      label: "hr",
+      text: "hr",
       value: "HR",
     },
   ];
-
-  const departmentOptions: any = [];
-
-  department.forEach((item) => {
-    departmentOptions.push(item.value);
-  });
 
   const changeHandler = (e: any) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -124,11 +114,13 @@ const ProfileUpdate = () => {
             <div className="py-2">
               <Dropdown
                 className="w-full"
-                label="Department"
-                options={departmentOptions}
+                options={departmentArray}
                 name="department"
+                label="select department"
                 value={values.department}
-                onChange={changeHandler}
+                onChange={(value: any) => {
+                  changeHandler({ target: { name: "department", value } });
+                }}
               />
             </div>
             <div className="flex justify-center items-center border border-primary-500 rounded-lg my-3">
